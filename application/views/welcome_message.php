@@ -66,8 +66,8 @@ foreach ($campos as $key => $campo) {
             $variaveis_array = $variaveis_array . ",";
         } 
            $object = new stdClass();
-           $object->formulario =  $this->geradordecodigo->gen_form($campo);
-           $object->formulario_edit =$this->geradordecodigo-> gen_form_edit($campo);
+           $object->formulario =  $this->escreveview->gen_form($campo);
+           $object->formulario_edit =$this->escreveview-> gen_form_edit($campo);
            $object->campo = $campo;
            
         array_push($formulario,  $object);
@@ -85,35 +85,35 @@ foreach ($campos as $key => $campo) {
     
     $auto_complete=$auto_complete. " ".$this->escreveautocomplete->pre_add_escreve_auto_complete($nome_model);
     
-//    $auto_complete=$auto_complete. " ".$this->geradordecodigo->pre_add_escreve_auto_complete($tabela->$tables_in);
+//    $auto_complete=$auto_complete. " ".$this->escreve->pre_add_escreve_auto_complete($tabela->$tables_in);
     $nome_view = lcfirst($nome_tabela_sem_prefixo);
     
     echo "<div id=div_".$nome_tabela.">";
     echo "<h3>controller: ".$nome_controller."</h3>";
     
-    echo $this->geradordecodigo->escreve_btn("div_".$nome_controller."_vw") ;
+    echo $this->escreveview->escreve_btn("div_".$nome_controller."_vw") ;
     echo "<div id='div_".$nome_controller."_vw'>";
-     $echo = ($this->geradordecodigo->escreve_controller($nome_view,$nome_model) ) ;
+     $echo = ($this->escrevecontroller->escreve_controller($nome_view,$nome_model) ) ;
      highlight_string($echo);
     echo "</div>";
     
     echo "<h3>model: ".$nome_model."</h3>";   
-    echo $this->geradordecodigo->escreve_btn("div_".$nome_model."_model") ;
+    echo $this->escreveview->escreve_btn("div_".$nome_model."_model") ;
     echo "<div id='div_".$nome_model."_model'>";
-    $echo = $this->geradordecodigo->escreve_model($nome_model,$nome_tabela,$variaveis,$variaveis_array,$primary_key) ;
+    $echo = $this->escrevemodel->escreve_model($nome_model,$nome_tabela,$variaveis,$variaveis_array,$primary_key) ;
     
     highlight_string($echo);
     echo "</div>";
     echo "<h3>view</h3>";   
-    echo $this->geradordecodigo->escreve_btn("div_".$nome_tabela."_add") ;
+    echo $this->escreveview->escreve_btn("div_".$nome_tabela."_add") ;
     echo "<div id='div_".$nome_tabela."_add'>";
-    $echo = $this->geradordecodigo->escreve_formulario($nome_controller,$formulario) ;
+    $echo = $this->escreveview->escreve_formulario($nome_controller,$formulario) ;
     echo ($echo);
     echo "</div>";
     echo "<h3>edit</h3>";   
-    echo $this->geradordecodigo->escreve_btn("div_".$nome_tabela."_edit") ;
+    echo $this->escreveview->escreve_btn("div_".$nome_tabela."_edit") ;
     echo "<div id='div_".$nome_tabela."_edit'>";
-    $echo = $this->geradordecodigo->escreve_formulario_edit($nome_controller,$formulario) ;
+    $echo = $this->escreveview->escreve_formulario_edit($nome_controller,$formulario) ;
     echo($echo);
     echo "</div>";
     echo "</div>";
@@ -127,7 +127,7 @@ foreach ($campos as $key => $campo) {
     echo "<a name='AutoComplete'></a> ";
     echo "<br> ";
     
-    echo $this->geradordecodigo->escreve_btn("div_auto_complete") ;
+    echo $this->escreveview->escreve_btn("div_auto_complete") ;
     
     
   echo "<div id='div_auto_complete'>";
