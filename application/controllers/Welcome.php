@@ -22,8 +22,8 @@ class Welcome extends CI_Controller {
     var $banco_ativo = "seg_viva_dev";
 	public function index()
 	{
-	   $data['quantas_letras_remover']=3;
-            $data['pasta_do_sistema']="//var/www/html/comissionamento";
+	    $data['quantas_letras_remover']=3;
+            $data['pasta_do_sistema']="//var/www/html/arquivo";
             $data['tabelas']=$this->DBA->busca_lista_de_tabelas();
 
 

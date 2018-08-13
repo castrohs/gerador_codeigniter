@@ -1,4 +1,4 @@
-<cript src="https://cdn.jsdelivr.net/clipboard.js/1.5.3/clipboard.min.js"></script>
+<script src="https://cdn.jsdelivr.net/clipboard.js/1.5.3/clipboard.min.js"></script>
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 ?><!DOCTYPE html>
@@ -83,7 +83,7 @@ foreach ($campos as $key => $campo) {
     $nome_model = ucwords($nome_tabela_sem_prefixo).$prefixoModel;
     
     
-    $auto_complete=$auto_complete. " ".$this->geradordecodigo->pre_add_escreve_auto_complete($nome_model);
+    $auto_complete=$auto_complete. " ".$this->escreveautocomplete->pre_add_escreve_auto_complete($nome_model);
     
 //    $auto_complete=$auto_complete. " ".$this->geradordecodigo->pre_add_escreve_auto_complete($tabela->$tables_in);
     $nome_view = lcfirst($nome_tabela_sem_prefixo);
@@ -131,7 +131,7 @@ foreach ($campos as $key => $campo) {
     
     
   echo "<div id='div_auto_complete'>";
-    $echo = $this->geradordecodigo->escreve_auto_complete($auto_complete); 
+    $echo = $this->escreveautocomplete->escreve_auto_complete($auto_complete); 
     highlight_string($echo);
 echo "</div>";
 
