@@ -1,0 +1,26 @@
+
+
+.inverse-dropdown{
+  background-color: #222;
+  border-color: #080808;
+ 
+  &>li>a{
+   
+    &:hover{
+      color: #fff;
+      background-color: #000;
+    }
+  }
+}
+.dropdown-menu > li > a{
+  color: white;
+}
+
+
+.box {
+  display: inline-block;
+  width: auto;
+  height: auto;
+/*  margin: 1em;*/
+  align-content: center;
+}
