@@ -40,7 +40,7 @@ FROM
 WHERE
   `TABLE_SCHEMA` = SCHEMA()                -- Detect current schema in USE 
   AND `REFERENCED_TABLE_NAME` IS NOT NULL  -- Only tables with foreign keys
-  and TABLE_NAME = ".$table.";";
+  and TABLE_NAME = '".$table."';";
 
 
 
@@ -48,12 +48,5 @@ return $this->db->query( $sql)->result();
         
     }
     
-    
-//    function show_databases() {
-//        $sql = "show databvase"
-//;
-//        return $this->db->query( $sql)->result();
-//
-//        
-//    }
+
 }

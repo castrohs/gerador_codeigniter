@@ -13,6 +13,12 @@ fclose($file);
 }
 
 function escreve_model($nome_model,$nome_tabela,$variaveis,$variaveis_array,$id_tabela) {
+  $join="";
+    if(!empty($nome_tabela)){
+      
+    $join = $this->escreve_join($nome_tabela);
+    }  
+ 
  $query_where_primary_key ='';
  $query_where_input ='';
  $query_where_busca_um ='';
@@ -101,13 +107,14 @@ class  " . $nome_model . " extends CI_Model {
         if(!empty(\$limit)&&!empty(\$apartir_de_que_registro)){
             \$this->db->limit(\$limit, \$apartir_de_que_registro);
         }
+        ".$join."
         \$query = \$this->db->get('" . $nome_tabela . "');
         return \$query->result();
     }
 \n
     function busca_um(".$query_where_busca_um.") {
       ".$query_where_input."
-          
+          ".$join."
         \$query = \$this->db->get('" . $nome_tabela . "');
        \$result= \$query->result();
        
@@ -128,7 +135,7 @@ class  " . $nome_model . " extends CI_Model {
        foreach (\$arry_where as \$key => \$value) {
                \$this->db->where(\$key, \$value);
         }
-          
+          ".$join."
         \$query = \$this->db->get('" . $nome_tabela . "');
        \$result= \$query->result();
        
@@ -157,6 +164,27 @@ class  " . $nome_model . " extends CI_Model {
 
     return $model;
 
+}
+
+
+
+public function escreve_join($tabela) {
+    $ci =& get_instance();
+    
+    $referencias = $ci->DBA->busca_todas_referencias($tabela); 
+    $join = "";
+  if(!empty($referencias)){
+      
+      foreach ($referencias as $key => $referencia) {
+          
+         $join .= "\n\$this->db->join('".$tabela."', '".$tabela.".".$referencia->COLUMN_NAME." = ".$referencia->REFERENCED_TABLE_NAME.".".$referencia->REFERENCED_COLUMN_NAME."');";
+         
+      }
+      return $join;
+      
+    
+      
+}
 }
     
 }

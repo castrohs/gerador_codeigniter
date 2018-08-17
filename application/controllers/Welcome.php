@@ -18,8 +18,8 @@ class Welcome extends CI_Controller {
 	 * map to /index.php/welcome/<method_name>
 	 * @see https://codeigniter.com/user_guide/general/urls.html
 	 */
-//    var $banco_ativo = "euro_faturas";
-    var $banco_ativo = "seg_viva_dev";
+
+    var $banco_ativo = "euro_faturas";
 	public function index()
 	{
 	    $data['quantas_letras_remover']=3;
@@ -41,4 +41,8 @@ class Welcome extends CI_Controller {
         return $this->banco_ativo;
         
     }
+    
+    
+    
+
 }
