@@ -10,6 +10,4 @@ ele cria a view e o edit para a modal dos dados basica já com alguns tipos de d
 
 O código também é iniciado para criar o auto_complete  para o netbeans.
 
-Próximas iterações ciração de tabelas com os seus joins respectivos.
-Atualmente faz sem os joins.
 
