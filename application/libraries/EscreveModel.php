@@ -3,46 +3,45 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class EscreveModel {
-    
-    function writeModel($pasta_do_sistema,$nome_arquivo,$escrita){
 
-$file = fopen($pasta_do_sistema. "//application//models//".$nome_arquivo."Model.php","w");
- fwrite($file,$escrita);
-fclose($file);
+    function writeModel($pasta_do_sistema, $nome_arquivo, $escrita) {
 
-}
-
-function escreve_model($nome_model,$nome_tabela,$variaveis,$variaveis_array,$id_tabela) {
-  $join="";
-    if(!empty($nome_tabela)){
-      
-    $join = $this->escreve_join($nome_tabela);
-    }  
- 
- $query_where_primary_key ='';
- $query_where_input ='';
- $query_where_busca_um ='';
- $j=0;
- 
-    foreach ($id_tabela as $key => $id) {
-        
-    $query_where_primary_key .= '$this->db->where("'.$id.'", $post["'. $id.'"]);';    
-    $query_where_input .= 'if (!empty( $id'.$j.')){';    
-    $query_where_input .= '$this->db->where("'.$id.'", $id'.$j.');';    
-    $query_where_input .= '}';    
-    $query_where_busca_um .= '$id'.$j.'=null,';    
-    
-    $j=$j+1;
+        $file = fopen($pasta_do_sistema . "//application//models//" . $nome_arquivo . "Model.php", "w");
+        fwrite($file, $escrita);
+        fclose($file);
     }
-    $query_where_busca_um=substr($query_where_busca_um,0,-1);
-   
-   
-$model="
+
+    function escreve_model($nome_model, $nome_tabela, $variaveis, $variaveis_array, $id_tabela) {
+        $join = "";
+        if (!empty($nome_tabela)) {
+
+            $join = $this->escreve_join($nome_tabela);
+        }
+
+        $query_where_primary_key = '';
+        $query_where_input = '';
+        $query_where_busca_um = '';
+        $j = 0;
+
+        foreach ($id_tabela as $key => $id) {
+
+            $query_where_primary_key .= '$this->db->where("' . $id . '", $post["' . $id . '"]);';
+            $query_where_input .= 'if (!empty( $id' . $j . ')){';
+            $query_where_input .= '$this->db->where("' . $id . '", $id' . $j . ');';
+            $query_where_input .= '}';
+            $query_where_busca_um .= '$id' . $j . '=null,';
+
+            $j = $j + 1;
+        }
+        $query_where_busca_um = substr($query_where_busca_um, 0, -1);
+
+
+        $model = "
    <?php
 class  " . $nome_model . " extends CI_Model {
     " .
-    $variaveis
-    . "
+                $variaveis
+                . "
    \nvar \$array_variaveis = [" . $variaveis_array . " ];
 \n
     public function __construct() {
@@ -77,8 +76,8 @@ class  " . $nome_model . " extends CI_Model {
 
     function update() {
         \$post = \$this->input->post();
-       
-    ".$query_where_primary_key."
+       \n\$this->db->reset_query();\n
+    " . $query_where_primary_key . "
         
         \$query = \$this->db->get('" . $nome_tabela . "')->result();
 
@@ -95,7 +94,7 @@ class  " . $nome_model . " extends CI_Model {
             }
         }
 
-        ".$query_where_primary_key."
+        " . $query_where_primary_key . "
         \$retorno = \$this->db->update('" . $nome_tabela . "', \$this);
        \$this->load->model('LogModel');
         \$log = new LogModel();
@@ -104,17 +103,19 @@ class  " . $nome_model . " extends CI_Model {
     }
 \n
     function busca_todos(\$limit=null, \$apartir_de_que_registro=null) {       
+    \n\$this->db->reset_query();\n
         if(!empty(\$limit)&&!empty(\$apartir_de_que_registro)){
             \$this->db->limit(\$limit, \$apartir_de_que_registro);
         }
-        ".$join."
+        " . $join . "
         \$query = \$this->db->get('" . $nome_tabela . "');
         return \$query->result();
     }
 \n
-    function busca_um(".$query_where_busca_um.") {
-      ".$query_where_input."
-          ".$join."
+    function busca_um(" . $query_where_busca_um . ") {
+\n\$this->db->reset_query();\n       
+         " . $query_where_input . "
+          " . $join . "
         \$query = \$this->db->get('" . $nome_tabela . "');
        \$result= \$query->result();
        
@@ -135,7 +136,7 @@ class  " . $nome_model . " extends CI_Model {
        foreach (\$arry_where as \$key => \$value) {
                \$this->db->where(\$key, \$value);
         }
-          ".$join."
+          " . $join . "
         \$query = \$this->db->get('" . $nome_tabela . "');
        \$result= \$query->result();
        
@@ -148,10 +149,10 @@ class  " . $nome_model . " extends CI_Model {
     }
 \n
     function excluir() {
-
+        \n\$this->db->reset_query();\n
         \$post = \$this->input->post();
         
-        ".$query_where_primary_key."
+        " . $query_where_primary_key . "
         \$this->db->delete('" . $nome_tabela . "');
             \$this->load->model('LogModel');
         \$log = new LogModel();
@@ -162,29 +163,22 @@ class  " . $nome_model . " extends CI_Model {
 
 ";
 
-    return $model;
+        return $model;
+    }
 
-}
+    public function escreve_join($tabela) {
+        $ci = & get_instance();
 
+        $referencias = $ci->DBA->busca_todas_referencias($tabela);
+        $join = "";
+        if (!empty($referencias)) {
 
+            foreach ($referencias as $key => $referencia) {
 
-public function escreve_join($tabela) {
-    $ci =& get_instance();
-    
-    $referencias = $ci->DBA->busca_todas_referencias($tabela); 
-    $join = "";
-  if(!empty($referencias)){
-      
-      foreach ($referencias as $key => $referencia) {
-          
-         $join .= "\n\$this->db->join('".$tabela."', '".$tabela.".".$referencia->COLUMN_NAME." = ".$referencia->REFERENCED_TABLE_NAME.".".$referencia->REFERENCED_COLUMN_NAME."');";
-         
-      }
-      return $join;
-      
-    
-      
-}
-}
-    
+                $join .= "\n\$this->db->join('" . $tabela . "', '" . $tabela . "." . $referencia->COLUMN_NAME . " = " . $referencia->REFERENCED_TABLE_NAME . "." . $referencia->REFERENCED_COLUMN_NAME . "');";
+            }
+            return $join;
+        }
+    }
+
 }
