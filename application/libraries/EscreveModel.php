@@ -104,7 +104,7 @@ class  " . $nome_model . " extends CI_Model {
 \n
     function busca_todos(\$limit=null, \$apartir_de_que_registro=null) {       
     \n\$this->db->reset_query();\n
-        if(!empty(\$limit)&&!empty(\$apartir_de_que_registro)){
+        if(!empty(\$limit)){
             \$this->db->limit(\$limit, \$apartir_de_que_registro);
         }
         " . $join . "
