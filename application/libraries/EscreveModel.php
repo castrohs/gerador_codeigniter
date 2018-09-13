@@ -174,8 +174,8 @@ class  " . $nome_model . " extends CI_Model {
         if (!empty($referencias)) {
 
             foreach ($referencias as $key => $referencia) {
-
-                $join .= "\n\$this->db->join('" . $tabela . "', '" . $tabela . "." . $referencia->COLUMN_NAME . " = " . $referencia->REFERENCED_TABLE_NAME . "." . $referencia->REFERENCED_COLUMN_NAME . "');";
+//                var_dump($referencia);
+                $join .= "\n\$this->db->join('" . $referencia->REFERENCED_TABLE_NAME . "', '" . $tabela . "." . $referencia->COLUMN_NAME . " = " . $referencia->REFERENCED_TABLE_NAME . "." . $referencia->REFERENCED_COLUMN_NAME . "');";
             }
             return $join;
         }

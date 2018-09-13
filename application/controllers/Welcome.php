@@ -19,7 +19,7 @@ class Welcome extends CI_Controller {
 	 * @see https://codeigniter.com/user_guide/general/urls.html
 	 */
 
-    var $banco_ativo = "euro_faturas";
+    var $banco_ativo = "divergenciatarifaria";
 	public function index()
 	{
 	    $data['quantas_letras_remover']=3;

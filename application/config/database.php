@@ -78,9 +78,12 @@ $ci = & get_instance();
 $db['default'] = array(
 	'dsn'	=> '',
 
-	'hostname' => 'localhost',
-	'username' => 'root',
-	'password' => '',
+	'hostname' => '192.168.1.11',
+	'username' => 'adm_euro',
+	'password' => 'Euro@365',
+//	'hostname' => 'localhost',
+//	'username' => 'root',
+//	'password' => '',
 
 	'database' => $ci->banco_ativo(),
 
