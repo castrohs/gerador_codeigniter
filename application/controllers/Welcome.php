@@ -19,20 +19,14 @@ class Welcome extends CI_Controller {
 	 * @see https://codeigniter.com/user_guide/general/urls.html
 	 */
 
-    var $banco_ativo = "divergenciatarifaria";
+    var $banco_ativo = "";
 	public function index()
 	{
-	    $data['quantas_letras_remover']=3;
-            $data['pasta_do_sistema']="//var/www/html/arquivo";
-            $data['tabelas']=$this->DBA->busca_lista_de_tabelas();
+             $this->load->view('layout/web_head');
+             
+             $this->load->view('conecta');
+	     
 
-
-            $data['tables_in']='Tables_in_'.$this->banco_ativo;
-            
-		$this->load->view('layout/web_head');
-		$this->load->view('welcome_message',$data);
-	
-                
         }
         
          function banco_ativo() {
