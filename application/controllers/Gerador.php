@@ -19,24 +19,24 @@ class Gerador extends CI_Controller {
      * map to /index.php/welcome/<method_name>
      * @see https://codeigniter.com/user_guide/general/urls.html
      */
-    var $hostname;
-    var $adminstrador;
-    var $senha;
-    var $quantas_letras_remover;
-    var $db;
+    
 
     public function index() {
         $this->conecta();
     }
 
     var $banco_ativo = 'information_schema';
+    var $arr = ['hostname','administrador','senha','quantas_letras_remover'];
 
     public function gera() {
-        $base = $this->input->get();
-        $data['tabelas'] = $this->DBA->busca_lista_de_tabelas();
-
-        $this->DBA->conecta($base, $this->hostname, $this->adminstrador, $this->senha);
-        $data['tables_in'] = 'Tables_in_' . $base;
+        $get = $this->input->get();
+        $this->novo_banco = $get['novo_banco'];
+        
+        
+        $this->DBA->db1 = $this->DBA->conecta($get['novo_banco']);
+        $data['tabelas'] = $this->DBA->busca_lista_de_tabelas($this->DBA->db1);
+        
+        $data['tables_in'] = 'Tables_in_' . $this->novo_banco;
         $this->load->view('layout/web_head');
         $this->load->view('gerador', $data);
     }
@@ -50,20 +50,23 @@ class Gerador extends CI_Controller {
     public function conexao() {
         $data['pasta_do_sistema'] = "//var/www/html/arquivo";
         $get = $this->input->get();
-        $this->hostname = $get['hostname'];
-        $this->adminstrador = $get['administrador'];
-        $this->senha = $get['senha'];
-        $this->quantas_letras_remover =$get['quantas_letras_remover'];
-        $data['quantas_letras_remover'] = $get['quantas_letras_remover'];
+        
+        
+        foreach ($this->arr  as $value ) {
+//            echo $value . " ".$get[$value]."<br>";
+             $this->DBA->$value = $get[$value];
+         
+        }
 
-        $this->db = $this->DBA->conecta('information_schema', $this->hostname, $this->adminstrador, $this->senha);
+        $this->DBA->db1 = $this->DBA->conecta('information_schema');
         
         $this->escolha_db();
     }
 
     public function escolha_db() {
-        
-        $data['bancos'] = $this->DBA->busca_lista_de_banco_de_dados($this->db);
+      
+
+        $data['bancos'] = $this->DBA->busca_lista_de_banco_de_dados($this->DBA->db1);
         $this->load->view('layout/web_head');
         $this->load->view('escolha_dba', $data);
     }

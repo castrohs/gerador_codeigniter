@@ -12,7 +12,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <body>
 
         <div id="container">
-            <form class="form-horizontal" action="<?php echo base_url('Gerador/gera') ?>"  method="post">
+            <form class="form-horizontal" action="<?php echo base_url('Gerador/gera') ?>"  method="get">
                 <fieldset>
 
                     <!-- Form Name -->

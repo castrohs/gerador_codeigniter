@@ -2,9 +2,11 @@
 
 class DBA extends CI_Model {
     
+    var $novo_banco;
     var $hostname;
-    var $adminstrador;
-    var $senha;
+    var $administrador;
+    var $senha='';
+    var $quantas_letras_remover;
     
     var $db1;
     public function __construct() {
@@ -13,21 +15,18 @@ class DBA extends CI_Model {
     }
     
     
-    function busca_lista_de_tabelas() {
+    function busca_lista_de_tabelas($db1) {
         
-             
-        return $this->db1->query("show tables")->result();
+        return $db1->query("show tables")->result();
     }
-    function conecta($banco_ativo =null,
-                     $hostname =null,
-                     $adminstrador=null ,
-                     $senha=null) {
+    function conecta($banco) {
         
-        $this->db1 = null;
-        $config['hostname'] =$hostname ;
-        $config['username'] = $adminstrador;
-        $config['password'] = $senha;
-        $config['database'] ='information_schema';
+        $this->novo_banco=$banco;
+          
+        $config['hostname'] = $this->hostname ;
+        $config['username'] = $this->administrador;
+        $config['password'] = $this->senha;
+        $config['database'] = $this->novo_banco;
         $config['dbdriver'] = 'mysqli';
         $config['dbprefix'] = '';
         $config['pconnect'] = FALSE;
@@ -36,9 +35,15 @@ class DBA extends CI_Model {
         $config['cachedir'] = '';
         $config['char_set'] = 'utf8';
         $config['dbcollat'] = 'utf8_general_ci';
+        
         $this->db1 = $this->load->database($config,true);
-        return $this->db1;
+        
+    return $this->db1;    
+    
+    
+    
     }
+   
     function busca_lista_de_banco_de_dados($db) {
         
         $teste =  $db->query("show databases");
