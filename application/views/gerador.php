@@ -12,7 +12,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <body>
 
 <div id="container">
-
+<a href="<?php echo base_url()?>">Voltar</a><br>
 <?php 
     
 

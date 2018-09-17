@@ -31,7 +31,7 @@ class Gerador extends CI_Controller {
 
     public function gera() {
         
-        $get = $this->input->get();
+        $get = $this->input->post();
         $this->novo_banco = $get['novo_banco'];
         
              $this->DBA->hostname =  $this->session->hostname;
@@ -57,7 +57,7 @@ class Gerador extends CI_Controller {
 
     public function conexao() {
         $data['pasta_do_sistema'] = "//var/www/html/arquivo";
-        $get = $this->input->get();
+        $get = $this->input->post();
         
         
         foreach ($this->arr  as $value ) {

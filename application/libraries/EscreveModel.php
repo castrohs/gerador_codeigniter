@@ -36,19 +36,18 @@ class EscreveModel {
         $query_where_busca_um = substr($query_where_busca_um, 0, -1);
 
 
-        $model = "
-   <?php
+        $model = "<?php
 class  " . $nome_model . " extends CI_Model {
     " .
                 $variaveis
                 . "
    \nvar \$array_variaveis = [" . $variaveis_array . " ];
-\n
+
     public function __construct() {
-   \n
+  
         parent::__construct();
     }
-\n
+
     function insert() {
         \$post = \$this->input->post();
         foreach (\$this->array_variaveis as \$value) {
@@ -103,7 +102,7 @@ class  " . $nome_model . " extends CI_Model {
     }
 \n
     function busca_todos(\$limit=null, \$apartir_de_que_registro=null) {       
-    \n\$this->db->reset_query();\n
+    \$this->db->reset_query();
         if(!empty(\$limit)){
             \$this->db->limit(\$limit, \$apartir_de_que_registro);
         }
@@ -111,7 +110,7 @@ class  " . $nome_model . " extends CI_Model {
         \$query = \$this->db->get('" . $nome_tabela . "');
         return \$query->result();
     }
-\n
+
     function busca_um(" . $query_where_busca_um . ") {
 \n\$this->db->reset_query();\n       
          " . $query_where_input . "
@@ -149,7 +148,7 @@ class  " . $nome_model . " extends CI_Model {
     }
 \n
     function excluir() {
-        \n\$this->db->reset_query();\n
+        \n\$this->db->reset_query();
         \$post = \$this->input->post();
         
         " . $query_where_primary_key . "
@@ -158,7 +157,7 @@ class  " . $nome_model . " extends CI_Model {
         \$log = new LogModel();
         \$log->insert(\$this->db->select());
     }
-\n
+
 }
 
 ";

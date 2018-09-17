@@ -10,9 +10,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
     </head>
     <body>
-
+        <a href="<?php echo base_url()?>">Voltar</a><br>
         <div id="container">
-            <form class="form-horizontal" action="<?php echo base_url('Gerador/gera') ?>"  method="get">
+            <form class="form-horizontal" action="<?php echo base_url('Gerador/gera') ?>"  method="post">
                 <fieldset>
 
                     <!-- Form Name -->

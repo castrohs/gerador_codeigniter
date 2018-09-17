@@ -12,7 +12,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <body>
     <h1>Bem vindo ao gerador</h1>
 <div id="container">
-    <form class="form-horizontal" action="<?php echo base_url('Gerador/conexao')?>" method="get">
+    <form class="form-horizontal" action="<?php echo base_url('Gerador/conexao')?>" method="post">
 <fieldset>
 
 <!-- Form Name -->
