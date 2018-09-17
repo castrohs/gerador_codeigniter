@@ -12,6 +12,7 @@ class DBA extends CI_Model {
     public function __construct() {
 
         parent::__construct();
+        
     }
     
     
@@ -37,6 +38,39 @@ class DBA extends CI_Model {
         $config['dbcollat'] = 'utf8_general_ci';
         
         $this->db1 = $this->load->database($config,true);
+        
+    return $this->db1;    
+    
+    
+    
+    }
+    function conecta2($banco) {
+        
+        $this->novo_banco=$banco;
+          
+        $config['hostname'] = $this->session->hostname ;
+        $config['username'] = $this->session->administrador;
+        $config['password'] = $this->session->senha;
+        $config['database'] = $this->session->novo_banco;
+        $config['dbdriver'] = 'mysqli';
+        $config['dbprefix'] = '';
+        $config['pconnect'] = FALSE;
+        $config['db_debug'] = TRUE;
+        $config['cache_on'] = FALSE;
+        $config['cachedir'] = '';
+        $config['char_set'] = 'utf8';
+        $config['dbcollat'] = 'utf8_general_ci';
+        
+        $this->db1 = $this->load->database($config,true);
+        
+    return $this->db1;    
+    
+    
+    
+    }
+    function troca_de_banco($banco) {
+        
+        $this->db1 = $this->load->database($banco,true);
         
     return $this->db1;    
     

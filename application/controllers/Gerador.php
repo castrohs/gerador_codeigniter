@@ -27,16 +27,24 @@ class Gerador extends CI_Controller {
 
     var $banco_ativo = 'information_schema';
     var $arr = ['hostname','administrador','senha','quantas_letras_remover'];
+    var $conexao = ['hostname','administrador','senha'];
 
     public function gera() {
+        
         $get = $this->input->get();
         $this->novo_banco = $get['novo_banco'];
+        
+             $this->DBA->hostname =  $this->session->hostname;
+             $this->DBA->administrador =  $this->session->administrador;
+             $this->DBA->senha =  $this->session->senha;
+      
         
         
         $this->DBA->db1 = $this->DBA->conecta($get['novo_banco']);
         $data['tabelas'] = $this->DBA->busca_lista_de_tabelas($this->DBA->db1);
         
         $data['tables_in'] = 'Tables_in_' . $this->novo_banco;
+        $data['quantas_letras_remover'] = $this->session->quantas_letras_remover;
         $this->load->view('layout/web_head');
         $this->load->view('gerador', $data);
     }
@@ -55,17 +63,15 @@ class Gerador extends CI_Controller {
         foreach ($this->arr  as $value ) {
 //            echo $value . " ".$get[$value]."<br>";
              $this->DBA->$value = $get[$value];
-         
+            
+             
+             $this->session->set_userdata($value, $get[$value]);
+             
         }
-
-        $this->DBA->db1 = $this->DBA->conecta('information_schema');
         
-        $this->escolha_db();
-    }
-
-    public function escolha_db() {
-      
-
+        $data['get']=$get;
+        $this->DBA->db1 = $this->DBA->conecta('information_schema');
+       
         $data['bancos'] = $this->DBA->busca_lista_de_banco_de_dados($this->DBA->db1);
         $this->load->view('layout/web_head');
         $this->load->view('escolha_dba', $data);
