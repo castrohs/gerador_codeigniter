@@ -18,14 +18,9 @@ class EscreveView {
 </div>";
               
     }
-    
-//    
-    
-    
-    
-    
+ 
     $result =  ""
-           ."<form action='<?php echo base_url('".$tabela."/cadastrar') ?> method='post' name='adicionar' id='adicionar' class='form-horizontal'>"
+           ."<form action='<?php echo base_url('".$tabela."/cadastrar') ?>' method='post' name='adicionar' id='adicionar' class='form-horizontal'>"
             . "<legend>".$tabela."</legend>
 ".$form."<div class='form-group'>"
     ."<label class='col-md-4 control-label' for='submit'></label>"
@@ -272,5 +267,7 @@ function escreve_btn($nome_view) {
 "; 
 return $controller;
 }
+
+
     
 }
