@@ -22,20 +22,19 @@ class EscreveModel {
         $query_where_input = '';
         $query_where_busca_um = '';
         $j = 0;
-
+        
         foreach ($id_tabela as $key => $id) {
 
-            $query_where_primary_key .= '$this->db->where("' . $id . '", $post["' . $id . '"]);';
+            $query_where_primary_key .= '$this->db->where("' .$nome_tabela.".". $id . '", $post["' . $id . '"]);';
             $query_where_input .= 'if (!empty( $id' . $j . ')){';
-            $query_where_input .= '$this->db->where("' . $id . '", $id' . $j . ');';
+            $query_where_input .= '$this->db->where("' .$nome_tabela.".". $id . '", $id' . $j . ');';
             $query_where_input .= '}';
             $query_where_busca_um .= '$id' . $j . '=null,';
 
             $j = $j + 1;
         }
         $query_where_busca_um = substr($query_where_busca_um, 0, -1);
-
-
+       
         $model = "<?php
 class  " . $nome_model . " extends CI_Model {
     " .
