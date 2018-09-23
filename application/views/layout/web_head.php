@@ -4,20 +4,19 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
             <meta name="viewport" content="width=device-width, initial-scale=1">
-                <link rel="stylesheet" href="//europlus.systems/gerador_php/css/bootstrap.css">
-                
-                    <link rel="stylesheet" href="//europlus.systems/gerador_php/css/custom.css">
-                    <link rel="stylesheet" href="//europlus.systems/gerador_php/css/custom2.css">
-                    <!--<link rel="stylesheet" href="//europlus.systems/gerador_php/css/sb-admin.css">-->
-                        <link rel="stylesheet" href="//europlus.systems/gerador_php/css/rotacao_animacao.css">
+                <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
                             <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
-                            <link href="https://file.myfontastic.com/TCsiyXQLt2rYahnSL3o53m/icons.css" rel="stylesheet">
-                                <script type="text/javascript" src="//europlus.systems/gerador_php/js/jquery.min.js" ></script>
-                                <script src="//europlus.systems/gerador_php/js/clipboard.js" type="text/javascript"></script>
-                                <script type="text/javascript" src="//europlus.systems/gerador_php/js/bootstrap.js"></script>                        
+                            
+                                
 
 
-                                <script type="text/javascript" src="//europlus.systems/gerador_php/js/jquery.maskedinput.js" ></script>
+                                
                                 <?php
                                 if (isset($menu_side_active)) {
                                     if ($menu_side_active) {
