@@ -21,8 +21,18 @@ class " . $nome_view . " extends CI_Controller {
     }
     \npublic function index() {
         \$this->listar();
+    }";
+        
+        $controller .= "\n".$this->escreve_listar($nome_view,$nome_model);
+        $controller .= "\n".$this->escreve_cadastrar($nome_view,$nome_model);
+        $controller .= "\n".$this->escreve_atualizar($nome_view,$nome_model);
+        $controller .= "\n".$this->escreve_atualizar_view($nome_view,$nome_model);
+        $controller .= "\n".$this->escreve_excluir($nome_view,$nome_model);
+        
+        return $controller;
     }
-    \npublic function listar() {
+    public function escreve_listar($nome_view,$nome_model){
+        $retorno = "\npublic function listar() {
         \$this->SessaoModel->verificaSessaoAtivaSeNaoLogout();
         \$data['title'] = 'Lista de $nome_view';
         \$this->load->view('layout/web_head', \$data);
@@ -33,8 +43,11 @@ class " . $nome_view . " extends CI_Controller {
         \$data['insert_result'] = \$this->session->flashdata('insert_result');
         \$this->load->view('" . $nome_view . "/listar', \$data);
         \$this->load->view('layout/web_footer');
+    }";
+        return $retorno;
     }
-    \npublic function cadastrar() {
+    public function escreve_cadastrar($nome_view,$nome_model){
+        $retorno = "\npublic function cadastrar() {
         \$this->SessaoModel->verificaSessaoAtivaAdminSeNaoLogout();
         \$post = \$this->input->post(); 
         if (!empty(\$post)) {
@@ -43,8 +56,11 @@ class " . $nome_view . " extends CI_Controller {
         }
         \$this->session->set_flashdata('insert_result', \$insert_result);
         redirect(base_url() . '" . $nome_view . "');
+    }";
+        return $retorno;
     }
-    \npublic function atualizar() {
+    public function escreve_atualizar($nome_view,$nome_model){
+        $retorno = "\npublic function atualizar() {
         \$this->SessaoModel->verificaSessaoAtivaAdminSeNaoLogout();
         \$post = \$this->input->post();
         if (!empty(\$post)) {
@@ -53,8 +69,11 @@ class " . $nome_view . " extends CI_Controller {
         }
         \$this->session->set_flashdata('insert_result', \$insert_result);
         redirect(base_url() . '" . $nome_view . "');
+    }";
+        return $retorno;
     }
-    public function atualizar" . $nome_view . "(\$id) {
+    public function escreve_atualizar_view($nome_view,$nome_model){
+        $retorno = "public function atualizar" . $nome_view . "(\$id) {
         \$this->SessaoModel->verificaSessaoAtivaSeNaoLogout();
         \$data['title'] = 'Atualizar " . $nome_view . "';
         \$this->load->view('layout/web_head', \$data);
@@ -66,7 +85,12 @@ class " . $nome_view . " extends CI_Controller {
         \$this->load->view('" . $nome_view . "/editar', \$data);
         \$this->load->view('layout/web_footer');
     }
-        \npublic function excluir() {
+       
+}";
+        return $retorno;
+    }
+    public function escreve_excluir($nome_view,$nome_model){
+        $retorno = "\npublic function excluir() {
         \$this->SessaoModel->verificaSessaoAtivaAdminSeNaoLogout();
         \$post = \$this->input->post();
         if (!empty(\$post)) {
@@ -75,9 +99,8 @@ class " . $nome_view . " extends CI_Controller {
         }
         \nredirect(base_url() . '" . $nome_view . "');
     }
-}
-?>";
-        return $controller;
+}";
+        return $retorno;
     }
 
 }
