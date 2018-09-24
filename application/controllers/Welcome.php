@@ -24,7 +24,7 @@ class Welcome extends CI_Controller {
 	{
              $this->load->view('layout/web_head');
              
-             $this->load->view('conecta');
+             $this->load->view('indice');
 	     
 
         }
