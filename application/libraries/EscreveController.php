@@ -5,8 +5,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class EscreveController {
 
     var $cabecalho="\$this->load->view('layout/web_head', \$data);
-        \$data['menus'] = \$this->MenuModel->menus();
-        \$this->load->view('layout/menu', \$data);";
+        \$menu['menus'] = \$this->MenuModel->menus();
+        \$this->load->view('layout/menu', \$menu);";
     
     function writeController($pasta_do_sistema, $nome_arquivo, $escrita) {
 
@@ -35,13 +35,14 @@ class " . $nome_view . " extends CI_Controller {
         
         return $controller;
     }
+    /*
+     * comando para listar os objetos de uma model
+     */
     public function escreve_listar($nome_view,$nome_model){
         $retorno = "\npublic function listar() {
         
         \$data['title'] = 'Lista de $nome_view';
-        \$this->load->view('layout/web_head', \$data);
-        \$data['menus'] = \$this->MenuModel->menus();
-        \$this->load->view('layout/menu', \$data);
+        ".$this->cabecalho."
         \$this->load->model('" . $nome_model . "');
         \$data['busca_todas']= \$this-> " . $nome_model . "->busca_todos();
         \$data['insert_result'] = \$this->session->flashdata('insert_result');
@@ -50,6 +51,9 @@ class " . $nome_view . " extends CI_Controller {
     }";
         return $retorno;
     }
+    /*
+     * comando para cadastrar um item novo
+     */
     public function escreve_cadastrar($nome_view,$nome_model){
         $retorno = "\npublic function cadastrar() {
         
@@ -63,6 +67,9 @@ class " . $nome_view . " extends CI_Controller {
     }";
         return $retorno;
     }
+    /*
+     * eu gero esta parte para ser chamada por uma view de listar sempre.
+     */
     public function escreve_atualizar($nome_view,$nome_model){
         $retorno = "\npublic function atualizar() {
         
@@ -76,16 +83,19 @@ class " . $nome_view . " extends CI_Controller {
     }";
         return $retorno;
     }
+    /*
+     * uma view para atualizar um item
+     */
     public function escreve_atualizar_view($nome_view,$nome_model){
-        $retorno = "public function atualizar" . $nome_view . "(\$id) {
+        $retorno = "public function atualizar_" . $nome_view . "(\$id) {
         
-        \$data['title'] = 'Atualizar " . $nome_view . "';
-        \$this->load->view('layout/web_head', \$data);
+        
         \$this->load->model('" . $nome_model . "');
         \$" . $nome_view . " = \$this-> " . $nome_model . "->busca_um(\$id);
         \$data['" . $nome_view . "']= \$" . $nome_view . "[0];
-        \$data['menus'] = \$this->MenuModel->menus();     
-        \$this->load->view('layout/menu', \$data);
+        
+        ".$this->cabecalho."
+        
         \$this->load->view('" . $nome_view . "/editar', \$data);
         \$this->load->view('layout/web_footer');
     }
@@ -93,6 +103,9 @@ class " . $nome_view . " extends CI_Controller {
 }";
         return $retorno;
     }
+    /*
+     * eu gero esta parte para ser chamada por uma view de listar sempre.
+     */
     public function escreve_excluir($nome_view,$nome_model){
         $retorno = "\npublic function excluir() {
         
