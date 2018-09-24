@@ -108,13 +108,13 @@ foreach ($campos as $key => $campo) {
     echo $this->escreveview->escreve_btn("div_".$nome_tabela."_add") ;
     echo "<div id='div_".$nome_tabela."_add'>";
     $echo = $this->escreveview->escreve_formulario($nome_controller,$formulario) ;
-    echo ($echo);
+    highlight_string($echo);
     echo "</div>";
     echo "<h3>Edição de Item</h3>";   
     echo $this->escreveview->escreve_btn("div_".$nome_tabela."_edit") ;
     echo "<div id='div_".$nome_tabela."_edit'>";
     $echo = $this->escreveview->escreve_formulario_edit($nome_controller,$formulario) ;
-    echo($echo);
+    highlight_string($echo);
     echo "</div>";
     echo "<h3>Pagina listar</h3>";   
     echo $this->escreveview->escreve_btn("div_".$nome_tabela."_pagina_listar") ;

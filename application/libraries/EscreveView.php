@@ -48,7 +48,7 @@ class EscreveView {
             
             ."";
 
-    return html_escape($result);
+    return ($result);
 
 }
     function escreve_pagina_listar($nome_controller=null,$formulario) {
@@ -57,7 +57,7 @@ class EscreveView {
  $item_key ='';
     foreach ($formulario as $key => $f) {
       $cabecalho_tabela .='<th class="">'.$f->campo->Field.'</th>';
-      $item  = "<?php echo \$item->".$f->campo->Field ." '?>";
+      $item  = "<?php echo \$item->".$f->campo->Field ." ?>";
       $item_tabela .='<td >'.$item.'</td>';
       if(!empty($f->campo->Key)){
         $item_key .=$f->campo->Field."_"; 
@@ -117,11 +117,11 @@ class EscreveView {
                                 <tr >
                                    '.$item_tabela.'
                                     <td><a href="#" class="btn  btn-primary right" data-toggle="modal"
-                                    data-target="#editar'.$item_key.'">
+                                    data-target="#editar_'.$item_key.'">
                                     '.$this->icone_editar.' </a></td>
 
                                     <td>
-                                        <a href="#" data-toggle="modal" data-target="#remover'.$item_key.'" class="btn btn-danger">
+                                        <a href="#" data-toggle="modal" data-target="#remover_'.$item_key.'" class="btn btn-danger">
                                             '.$this->icone_remover.'
                                         </a>
                                     </td>
@@ -193,7 +193,7 @@ function escreve_formulario_edit($tabela,$formulario,$tamanho_da_col = 'col-md-4
             
             ."";
 
-    return html_escape($result);
+    return ($result);
  
    
 
