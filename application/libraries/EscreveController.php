@@ -4,6 +4,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class EscreveController {
 
+    var $cabecalho="\$this->load->view('layout/web_head', \$data);
+        \$data['menus'] = \$this->MenuModel->menus();
+        \$this->load->view('layout/menu', \$data);";
+    
     function writeController($pasta_do_sistema, $nome_arquivo, $escrita) {
 
         $file = fopen($pasta_do_sistema . "//application//controllers//" . $nome_arquivo . ".php", "w");
@@ -33,7 +37,7 @@ class " . $nome_view . " extends CI_Controller {
     }
     public function escreve_listar($nome_view,$nome_model){
         $retorno = "\npublic function listar() {
-        \$this->SessaoModel->verificaSessaoAtivaSeNaoLogout();
+        
         \$data['title'] = 'Lista de $nome_view';
         \$this->load->view('layout/web_head', \$data);
         \$data['menus'] = \$this->MenuModel->menus();
@@ -48,7 +52,7 @@ class " . $nome_view . " extends CI_Controller {
     }
     public function escreve_cadastrar($nome_view,$nome_model){
         $retorno = "\npublic function cadastrar() {
-        \$this->SessaoModel->verificaSessaoAtivaAdminSeNaoLogout();
+        
         \$post = \$this->input->post(); 
         if (!empty(\$post)) {
             \$this->load->model('" . $nome_model . "');
@@ -61,7 +65,7 @@ class " . $nome_view . " extends CI_Controller {
     }
     public function escreve_atualizar($nome_view,$nome_model){
         $retorno = "\npublic function atualizar() {
-        \$this->SessaoModel->verificaSessaoAtivaAdminSeNaoLogout();
+        
         \$post = \$this->input->post();
         if (!empty(\$post)) {
             \$this->load->model('" . $nome_model . "');
@@ -74,7 +78,7 @@ class " . $nome_view . " extends CI_Controller {
     }
     public function escreve_atualizar_view($nome_view,$nome_model){
         $retorno = "public function atualizar" . $nome_view . "(\$id) {
-        \$this->SessaoModel->verificaSessaoAtivaSeNaoLogout();
+        
         \$data['title'] = 'Atualizar " . $nome_view . "';
         \$this->load->view('layout/web_head', \$data);
         \$this->load->model('" . $nome_model . "');
@@ -91,7 +95,7 @@ class " . $nome_view . " extends CI_Controller {
     }
     public function escreve_excluir($nome_view,$nome_model){
         $retorno = "\npublic function excluir() {
-        \$this->SessaoModel->verificaSessaoAtivaAdminSeNaoLogout();
+        
         \$post = \$this->input->post();
         if (!empty(\$post)) {
             \$this->load->model('" . $nome_model . "');
