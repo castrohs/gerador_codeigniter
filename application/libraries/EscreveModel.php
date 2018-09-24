@@ -21,6 +21,7 @@ class EscreveModel {
         $query_where_primary_key = '';
         $query_where_input = '';
         $query_where_busca_um = '';
+        $query_where_busca_um_quantidade = 0;
         $j = 0;
         
         foreach ($id_tabela as $key => $id) {
@@ -28,8 +29,9 @@ class EscreveModel {
             $query_where_primary_key .=' '. '$this->db->where("' .$nome_tabela.".". $id . '", $post["' . $id . '"]);';
             $query_where_input .= 'if (!empty( $id' . $j . ')){';
             $query_where_input .= '$this->db->where("' .$nome_tabela.".". $id . '", $id' . $j . ');';
-            $query_where_input .= '\}';
+            $query_where_input .= '}';
             $query_where_busca_um .= '$id' . $j . '=null,';
+            $query_where_busca_um_quantidade++;
 
             $j = $j + 1;
         }
@@ -46,17 +48,13 @@ class  " . $nome_model . " extends CI_Model {
   
         parent::__construct();
     }
-
-    
-   \n
-
-   
+ 
 ";
        
         $model .= "\n".$this->escreve_insert($nome_tabela);
         $model .= "\n".$this->escreve_update($nome_tabela,$query_where_primary_key);
         $model .= "\n".$this->escreve_busca_todos($nome_tabela,$join);
-        $model .= "\n".$this->escreve_busca_um($nome_tabela,$query_where_busca_um,$query_where_input,$join);
+        $model .= "\n".$this->escreve_busca_um($nome_tabela,$query_where_busca_um,$query_where_input,$join,$query_where_busca_um_quantidade);
         $model .= "\n".$this->escreve_busca_um_array($nome_tabela,$join);
         $model .= "\n".$this->escreve_excluir($nome_tabela,$query_where_primary_key);
         $model .="\n}";
@@ -134,19 +132,31 @@ class  " . $nome_model . " extends CI_Model {
     return $retorno;
       
     }
-    public function escreve_busca_um($nome_tabela,$query_where_busca_um,$query_where_input,$join){
-      $retorno = "function busca_um(" . $query_where_busca_um . ") {
+    public function escreve_busca_um($nome_tabela,$query_where_busca_um,$query_where_input,$join,$query_where_busca_um_quantidade){
+      
+        $sizeof="";
+       if($query_where_busca_um_quantidade==1){
+        $sizeof=" if(sizeof(\$result) > 0){
+          return \$result[0];
+        }else{
+            return null;
+        }";
+       }
+       else{
+           $sizeof=" if(sizeof(\$result) > 0){
+          return \$result;
+        }else{
+            return null;
+        }";
+       }
+        $retorno = "function busca_um(" . $query_where_busca_um . ") {
         \n\$this->db->reset_query();\n       
          " . $query_where_input . "
           " . $join . "
         \$query = \$this->db->get('" . $nome_tabela . "');
        \$result= \$query->result();
+       ".$sizeof."
        
-        if(sizeof(\$result) > 0){
-          return \$result[0];
-        }else{
-            return null;
-        }
     }";
     return $retorno;       
     
