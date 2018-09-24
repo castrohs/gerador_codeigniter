@@ -13,6 +13,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 <div id="container">
 <a href="<?php echo base_url()?>">Voltar</a><br>
+Não vou inventar a roda então para formatar o texto <a href="https://www.freeformatter.com/html-formatter.html">Free Formatter</a>
 <?php 
     
 
