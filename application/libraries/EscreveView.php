@@ -172,7 +172,7 @@ function escreve_formulario_edit($tabela,$formulario,$tamanho_da_col = 'col-md-4
         }
    
     $result =  ""
-           ."<form action='<?php echo base_url('".$tabela."/atualizar') ?> method='post' name='editar' id='editar' class='form-horizontal'>"
+           ."<form action='<?php echo base_url('".$tabela."/atualizar') ?>' method='post' name='editar' id='editar' class='form-horizontal'>"
             ."<fieldset>"
             . "<legend>".$tabela."</legend>"
             .$form
