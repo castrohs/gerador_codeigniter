@@ -90,7 +90,7 @@ class " . $nome_view . " extends CI_Controller {
         $pk="";
         $id="";
         foreach($primary_key as $key){
-            $pk.= "\n $".$key."= \$this->input->post('".$key."')";
+            $pk.= "\n $".$key."= \$this->input->post('".$key."');";
             $id .="\$".$key.",";
             
         }
@@ -107,9 +107,7 @@ class " . $nome_view . " extends CI_Controller {
         
         \$this->load->view('" . $nome_view . "/editar', \$data);
         \$this->load->view('layout/web_footer');
-    }
-       
-}";
+    }";
         return $retorno;
     }
     /*
