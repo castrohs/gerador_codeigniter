@@ -4,9 +4,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class EscreveController {
 
-    var $cabecalho="\$this->load->view('layout/web_head', \$data);
-        \$menu['menus'] = \$this->MenuModel->menus();
-        \$this->load->view('layout/menu', \$menu);";
+    // menu dentro do  web_head
+    var $cabecalho="\$this->load->view('layout/web_head', \$data);";
+    // menu fora do web_head
+//    var $cabecalho="\$this->load->view('layout/web_head', \$data);
+//        \$menu['menus'] = \$this->MenuModel->menus();
+//        \$this->load->view('layout/menu', \$menu);";
     
     function writeController($pasta_do_sistema, $nome_arquivo, $escrita) {
 
