@@ -104,7 +104,7 @@ class " . $nome_view . " extends CI_Controller {
         \$this->load->model('" . $nome_model . "');
         ".$pk."
         \$" . $nome_view . " = \$this-> " . $nome_model . "->busca_um(".$id.");
-        \$data['" . $nome_view . "']= \$" . $nome_view . ";
+        \$data['item']= \$" . $nome_view . ";
         
         ".$this->cabecalho."
         
