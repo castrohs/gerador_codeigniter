@@ -94,7 +94,7 @@ foreach ($campos as $key => $campo) {
     
     echo $this->escreveview->escreve_btn("div_".$nome_controller."_vw") ;
     echo "<div id='div_".$nome_controller."_vw'>";
-     $echo = ($this->escrevecontroller->escreve_controller($nome_view,$nome_model) ) ;
+     $echo = ($this->escrevecontroller->escreve_controller($nome_view,$nome_model,$primary_key) ) ;
      highlight_string($echo);
     echo "</div>";
     
