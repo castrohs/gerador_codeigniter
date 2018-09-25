@@ -15,7 +15,7 @@ class EscreveController {
         fclose($file);
     }
 
-    function escreve_controller($nome_view, $nome_model) {
+    function escreve_controller($nome_view, $nome_model,$primary_key) {
 
         $controller = "<?php \n\n defined('BASEPATH') OR exit('No direct script access allowed');
 
@@ -30,7 +30,7 @@ class " . $nome_view . " extends CI_Controller {
         $controller .= "\n".$this->escreve_listar($nome_view,$nome_model);
         $controller .= "\n".$this->escreve_cadastrar($nome_view,$nome_model);
         $controller .= "\n".$this->escreve_atualizar($nome_view,$nome_model);
-        $controller .= "\n".$this->escreve_atualizar_view($nome_view,$nome_model);
+        $controller .= "\n".$this->escreve_atualizar_view($nome_view,$nome_model,$primary_key);
         $controller .= "\n".$this->escreve_excluir($nome_view,$nome_model);
         
         return $controller;
@@ -86,12 +86,21 @@ class " . $nome_view . " extends CI_Controller {
     /*
      * uma view para atualizar um item
      */
-    public function escreve_atualizar_view($nome_view,$nome_model){
-        $retorno = "public function atualizar_" . $nome_view . "(\$id) {
-        
-        
+    public function escreve_atualizar_view($nome_view,$nome_model,$primary_key){
+        $pk="";
+        $id="";
+        foreach($primary_key as $key){
+            $pk.= "\n $".$key."= \$this->input->post('".$key."')";
+            $id .="\$".$key.",";
+            
+        }
+        $id = rtrim($id, ',');
+       
+        $retorno = "
+   public function edita_um() {
         \$this->load->model('" . $nome_model . "');
-        \$" . $nome_view . " = \$this-> " . $nome_model . "->busca_um(\$id);
+        ".$pk."
+        \$" . $nome_view . " = \$this-> " . $nome_model . "->busca_um(".$id.");
         \$data['" . $nome_view . "']= \$" . $nome_view . "[0];
         
         ".$this->cabecalho."
