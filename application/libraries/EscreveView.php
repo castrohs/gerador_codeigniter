@@ -170,12 +170,7 @@ function escreve_formulario_edit($tabela,$formulario,$tamanho_da_col = 'col-md-4
                     . "</div>"
                      . "</div>";
         }
-    
-//    
-    
-    
-    
-    
+   
     $result =  ""
            ."<form action='<?php echo base_url('".$tabela."/atualizar') ?> method='post' name='editar' id='editar' class='form-horizontal'>"
             ."<fieldset>"
