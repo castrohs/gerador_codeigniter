@@ -101,7 +101,8 @@ class EscreveView {
                         <tr>
 
                         '.$cabecalho_tabela.'
-
+                        <th class=""></th>
+                        <th class=""></th>
 
 
                         </tr>
