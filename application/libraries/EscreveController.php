@@ -11,12 +11,12 @@ class EscreveController {
 //        \$menu['menus'] = \$this->MenuModel->menus();
 //        \$this->load->view('layout/menu', \$menu);";
     
-    function writeController($pasta_do_sistema, $nome_arquivo, $escrita) {
-
-        $file = fopen($pasta_do_sistema . "//application//controllers//" . $nome_arquivo . ".php", "w");
-        fwrite($file, $escrita);
-        fclose($file);
-    }
+//    function writeController($pasta_do_sistema, $nome_arquivo, $escrita) {
+//
+//        $file = fopen($pasta_do_sistema . "//application//controllers//" . $nome_arquivo . ".php", "w");
+//        fwrite($file, $escrita);
+//        fclose($file);
+//    }
 
     function escreve_controller($nome_view, $nome_model,$primary_key) {
 
@@ -39,12 +39,12 @@ class " . $nome_view . " extends CI_Controller {
     \npublic function index() {
         \$this->listar();
     }";
-        
+        $rules_ativo =1;
         $controller .= "\n".$this->escreve_listar($nome_view,$nome_model);
-        $controller .= "\n".$this->escreve_cadastrar($nome_view,$nome_model,$rules);
-        $controller .= "\n".$this->escreve_atualizar($nome_view,$nome_model,$rules);
+        $controller .= "\n".$this->escreve_cadastrar($nome_view,$nome_model,$rules,$rules_ativo);//
+        $controller .= "\n".$this->escreve_atualizar($nome_view,$nome_model,$rules,$rules_ativo);
         $controller .= "\n".$this->escreve_atualizar_view($nome_view,$nome_model,$primary_key);
-        $controller .= "\n".$this->escreve_excluir($nome_view,$nome_model,$rules);
+        $controller .= "\n".$this->escreve_excluir($nome_view,$nome_model,$rules,$rules_ativo);//
         
         return $controller;
     }
@@ -67,29 +67,20 @@ class " . $nome_view . " extends CI_Controller {
     /*
      * comando para cadastrar um item novo
      */
-    public function escreve_cadastrar($nome_view,$nome_model,$rules =null){
+    public function escreve_cadastrar($nome_view,$nome_model,$rules =null,$rules_ativo=null){
         $retorno = "\npublic function cadastrar() {
         
                 
         \$post = \$this->input->post(); 
         if (!empty(\$post)) {
-            \$config['error_prefix'] = '<div class=\"error_prefix\">';
-            \$config['error_suffix'] = '</div>';
-            \$this->load->library('form_validation',\$config);
-            
-            ".$rules."
-                if (\$this->form_validation->run() == FALSE)
-                {
-        redirect(base_url() . '" . $nome_view . "');
-                }
-                else
-                {
-                        
+           
+            ".$this->form_valitador($nome_view, $rules,$rules_ativo)."
                 
             \$this->load->model('" . $nome_model . "');
             \$insert_result = \$this-> " . $nome_model . "->insert();
             }
             \$this->session->set_flashdata('insert_result', \$insert_result);
+            ".$this->form_valitador_close($rules_ativo)."
         }
         redirect(base_url() . '" . $nome_view . "');
     }";
@@ -98,7 +89,7 @@ class " . $nome_view . " extends CI_Controller {
     /*
      * eu gero esta parte para ser chamada por uma view de listar sempre.
      */
-    public function escreve_atualizar($nome_view,$nome_model,$rules =null){
+    public function escreve_atualizar($nome_view,$nome_model,$rules =null,$rules_ativo=null){
         $retorno = "\npublic function atualizar() {
         
                 
@@ -108,19 +99,13 @@ class " . $nome_view . " extends CI_Controller {
         \$config['error_suffix'] = '</div>';
         \$this->load->library('form_validation',\$config);
         
-        ".$rules."
-              if (\$this->\form_validation->run() == FALSE)
-                {
-                        redirect(base_url() . '" . $nome_view . "');
-                }
-                else
-                {
-                        
+        
+            ".$this->form_valitador($nome_view,$rules,$rules_ativo)."            
                 
             \$this->load->model('" . $nome_model . "');
             \$insert_result = \$this-> " . $nome_model . "->update();
         }
-        
+         ".$this->form_valitador_close($rules_ativo)." 
         \$this->session->set_flashdata('insert_result', \$insert_result);
         }
         redirect(base_url() . '" . $nome_view . "');
@@ -130,7 +115,7 @@ class " . $nome_view . " extends CI_Controller {
     /*
      * uma view para atualizar um item
      */
-    public function escreve_atualizar_view($nome_view,$nome_model,$primary_key,$rules =null){
+    public function escreve_atualizar_view($nome_view,$nome_model,$primary_key){
         $pk="";
         $id="";
         foreach($primary_key as $key){
@@ -160,30 +145,47 @@ class " . $nome_view . " extends CI_Controller {
     /*
      * eu gero esta parte para ser chamada por uma view de listar sempre.
      */
-    public function escreve_excluir($nome_view,$nome_model,$rules =null){
+    public function escreve_excluir($nome_view,$nome_model,$rules =null,$rules_ativo=null){
         $retorno = "\npublic function excluir() {
                \$post = \$this->input->post();
         if (!empty(\$post)) {
-        \$config['error_prefix'] = '<div class=\"error_prefix\">';
-        \$config['error_suffix'] = '</div>';
-        \$this->load->library('form_validation',\$config);
-        
-        ".$rules."
-              if (\$this->\form_validation->run() == FALSE)
-                {
-                        redirect(base_url() . '" . $nome_view . "');
-                }
-                else
-                {
+       ".$this->form_valitador($nome_view, $rules,$rules_ativo)."
               
             \$this->load->model('" . $nome_model . "');
             \$this-> " . $nome_model . "->excluir();
         }
-        }
+        ".$this->form_valitador_close($rules_ativo)."
         \nredirect(base_url() . '" . $nome_view . "');
     }
 }";
         return $retorno;
     }
-
+    public function form_valitador($nome_view,$rules,$ativo=true) {
+        $retorno="";
+        if($ativo){
+         $retorno = "\$config['error_prefix'] = '<div class=\"error_prefix\">';
+            \$config['error_suffix'] = '</div>';
+            \$this->load->library('form_validation',\$config);
+            
+            ".$rules."
+                if (\$this->form_validation->run() == FALSE)
+                {
+        redirect(base_url() . '" . $nome_view . "');
+                }
+                else
+                {
+    ";
+        }
+    return $retorno;
+         
+    }
+    public function form_valitador_close($ativo=true) {
+        $retorno="";
+        if($ativo){
+         $retorno = "}";
+        }
+    return $retorno;
+         
+    }
+    
 }
