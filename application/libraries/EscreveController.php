@@ -20,6 +20,16 @@ class EscreveController {
 
     function escreve_controller($nome_view, $nome_model,$primary_key) {
 
+        
+        $rules="";
+         foreach($primary_key as $key){
+            
+            $rules.= "\n \$this->form_validation->set_rules('".$key."', '". ucfirst($key)."', 'required');";
+            
+            
+        }
+        
+        
         $controller = "<?php \n\n defined('BASEPATH') OR exit('No direct script access allowed');
 
 class " . $nome_view . " extends CI_Controller {
@@ -31,10 +41,10 @@ class " . $nome_view . " extends CI_Controller {
     }";
         
         $controller .= "\n".$this->escreve_listar($nome_view,$nome_model);
-        $controller .= "\n".$this->escreve_cadastrar($nome_view,$nome_model);
-        $controller .= "\n".$this->escreve_atualizar($nome_view,$nome_model);
+        $controller .= "\n".$this->escreve_cadastrar($nome_view,$nome_model,$rules);
+        $controller .= "\n".$this->escreve_atualizar($nome_view,$nome_model,$rules);
         $controller .= "\n".$this->escreve_atualizar_view($nome_view,$nome_model,$primary_key);
-        $controller .= "\n".$this->escreve_excluir($nome_view,$nome_model);
+        $controller .= "\n".$this->escreve_excluir($nome_view,$nome_model,$rules);
         
         return $controller;
     }
@@ -57,15 +67,30 @@ class " . $nome_view . " extends CI_Controller {
     /*
      * comando para cadastrar um item novo
      */
-    public function escreve_cadastrar($nome_view,$nome_model){
+    public function escreve_cadastrar($nome_view,$nome_model,$rules =null){
         $retorno = "\npublic function cadastrar() {
         
+                
         \$post = \$this->input->post(); 
         if (!empty(\$post)) {
+            \$config['error_prefix'] = '<div class=\"error_prefix\">';
+            \$config['error_suffix'] = '</div>';
+            \$this->load->library('form_validation',\$config);
+            
+            ".$rules."
+                if (\$this->form_validation->run() == FALSE)
+                {
+        redirect(base_url() . '" . $nome_view . "');
+                }
+                else
+                {
+                        
+                
             \$this->load->model('" . $nome_model . "');
             \$insert_result = \$this-> " . $nome_model . "->insert();
+            }
+            \$this->session->set_flashdata('insert_result', \$insert_result);
         }
-        \$this->session->set_flashdata('insert_result', \$insert_result);
         redirect(base_url() . '" . $nome_view . "');
     }";
         return $retorno;
@@ -73,15 +98,31 @@ class " . $nome_view . " extends CI_Controller {
     /*
      * eu gero esta parte para ser chamada por uma view de listar sempre.
      */
-    public function escreve_atualizar($nome_view,$nome_model){
+    public function escreve_atualizar($nome_view,$nome_model,$rules =null){
         $retorno = "\npublic function atualizar() {
         
+                
         \$post = \$this->input->post();
         if (!empty(\$post)) {
+        \$config['error_prefix'] = '<div class=\"error_prefix\">';
+        \$config['error_suffix'] = '</div>';
+        \$this->load->library('form_validation',\$config);
+        
+        ".$rules."
+              if (\$this->\form_validation->run() == FALSE)
+                {
+                        redirect(base_url() . '" . $nome_view . "');
+                }
+                else
+                {
+                        
+                
             \$this->load->model('" . $nome_model . "');
             \$insert_result = \$this-> " . $nome_model . "->update();
         }
+        
         \$this->session->set_flashdata('insert_result', \$insert_result);
+        }
         redirect(base_url() . '" . $nome_view . "');
     }";
         return $retorno;
@@ -89,11 +130,12 @@ class " . $nome_view . " extends CI_Controller {
     /*
      * uma view para atualizar um item
      */
-    public function escreve_atualizar_view($nome_view,$nome_model,$primary_key){
+    public function escreve_atualizar_view($nome_view,$nome_model,$primary_key,$rules =null){
         $pk="";
         $id="";
         foreach($primary_key as $key){
             $pk.= "\n $".$key."= \$this->input->post('".$key."');";
+            
             $id .="\$".$key.",";
             
         }
@@ -101,6 +143,8 @@ class " . $nome_view . " extends CI_Controller {
        
         $retorno = "
    public function edita_um() {
+
+                
         \$this->load->model('" . $nome_model . "');
         ".$pk."
         \$" . $nome_view . " = \$this-> " . $nome_model . "->busca_um(".$id.");
@@ -116,13 +160,25 @@ class " . $nome_view . " extends CI_Controller {
     /*
      * eu gero esta parte para ser chamada por uma view de listar sempre.
      */
-    public function escreve_excluir($nome_view,$nome_model){
+    public function escreve_excluir($nome_view,$nome_model,$rules =null){
         $retorno = "\npublic function excluir() {
-        
-        \$post = \$this->input->post();
+               \$post = \$this->input->post();
         if (!empty(\$post)) {
+        \$config['error_prefix'] = '<div class=\"error_prefix\">';
+        \$config['error_suffix'] = '</div>';
+        \$this->load->library('form_validation',\$config);
+        
+        ".$rules."
+              if (\$this->\form_validation->run() == FALSE)
+                {
+                        redirect(base_url() . '" . $nome_view . "');
+                }
+                else
+                {
+              
             \$this->load->model('" . $nome_model . "');
             \$this-> " . $nome_model . "->excluir();
+        }
         }
         \nredirect(base_url() . '" . $nome_view . "');
     }

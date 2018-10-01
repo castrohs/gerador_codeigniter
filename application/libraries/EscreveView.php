@@ -22,7 +22,9 @@ class EscreveView {
     function escreve_formulario($tabela=null,$formulario) {
  $form ='';
     foreach ($formulario as $key => $f) {
-      $form .="<div class='form-group'>
+      $form .="
+          <?php echo form_error('".$f->campo->Field.")'; ?>
+          <div class='form-group'>
   <label class='col-md-4  control-label' for='".$f->campo->Field."'>".$f->campo->Field."</label>  
   <div class='col-md-4'>
   ".$f->formulario."
@@ -194,7 +196,7 @@ function escreve_formulario_edit($tabela,$formulario,$tamanho_da_col = 'col-md-4
    
 
 }
-function escreve_formulario_remover($tabela,$formulario,$tamanho_da_col = 'col-md-4') {
+function escreve_formulario_remover($tabela,$keys,$tamanho_da_col = 'col-md-4') {
     
   
     $result =  ""
