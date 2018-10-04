@@ -4,6 +4,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class EscreveModel {
 
+    var $ci;
+
     function writeModel($pasta_do_sistema, $nome_arquivo, $escrita) {
 
         $file = fopen($pasta_do_sistema . "//application//models//" . $nome_arquivo . "Model.php", "w");
@@ -12,6 +14,7 @@ class EscreveModel {
     }
 
     function escreve_model($nome_model, $nome_tabela, $variaveis, $variaveis_array, $id_tabela) {
+        $this->ci = &get_instance();
         $join = "";
         if (!empty($nome_tabela)) {
 
@@ -23,12 +26,12 @@ class EscreveModel {
         $query_where_busca_um = '';
         $query_where_busca_um_quantidade = 0;
         $j = 0;
-        
+
         foreach ($id_tabela as $key => $id) {
 
-            $query_where_primary_key .=' '. '$this->db->where("' .$nome_tabela.".". $id . '", $post["' . $id . '"]);';
+            $query_where_primary_key .= ' ' . '$this->db->where("' . $nome_tabela . "." . $id . '", $post["' . $id . '"]);';
             $query_where_input .= 'if (!empty( $id' . $j . ')){';
-            $query_where_input .= '$this->db->where("' .$nome_tabela.".". $id . '", $id' . $j . ');';
+            $query_where_input .= '$this->db->where("' . $nome_tabela . "." . $id . '", $id' . $j . ');';
             $query_where_input .= '}';
             $query_where_busca_um .= '$id' . $j . '=null,';
             $query_where_busca_um_quantidade++;
@@ -36,7 +39,7 @@ class EscreveModel {
             $j = $j + 1;
         }
         $query_where_busca_um = substr($query_where_busca_um, 0, -1);
-       
+
         $model = "<?php
 class  " . $nome_model . " extends CI_Model {
     " .
@@ -50,20 +53,20 @@ class  " . $nome_model . " extends CI_Model {
     }
  
 ";
-       
-        $model .= "\n".$this->escreve_insert($nome_tabela);
-        $model .= "\n".$this->escreve_update($nome_tabela,$query_where_primary_key);
-        $model .= "\n".$this->escreve_busca_todos($nome_tabela,$join);
-        $model .= "\n".$this->escreve_busca_um($nome_tabela,$query_where_busca_um,$query_where_input,$join,$query_where_busca_um_quantidade);
-        $model .= "\n".$this->escreve_busca_um_array($nome_tabela,$join);
-        $model .= "\n".$this->escreve_excluir($nome_tabela,$query_where_primary_key);
-        $model .="\n}";
+
+
+        $model .= "\n" . $this->escreve_insert($nome_tabela);
+        $model .= "\n" . $this->escreve_update($nome_tabela, $query_where_primary_key);
+        $model .= "\n" . $this->escreve_busca_todos($nome_tabela, $join);
+        $model .= "\n" . $this->escreve_busca_um($nome_tabela, $query_where_busca_um, $query_where_input, $join, $query_where_busca_um_quantidade);
+        $model .= "\n" . $this->escreve_busca_um_array($nome_tabela, $join);
+        $model .= "\n" . $this->escreve_excluir($nome_tabela, $query_where_primary_key);
+        $model .= "\n}";
         return $model;
     }
-    
-    
-    public function escreve_insert($nome_tabela){
-      $retorno = "function insert() {
+
+    public function escreve_insert($nome_tabela) {
+        $retorno = "function insert() {
         \$post = \$this->input->post();
         foreach (\$this->array_variaveis as \$value) {
             if (!empty(\$post[\$value])) {
@@ -86,10 +89,11 @@ class  " . $nome_model . " extends CI_Model {
         
         
     }";
-      return $retorno;
+        return $retorno;
     }
-    public function escreve_update($nome_tabela,$query_where_primary_key){
-      $retorno = " function update() {
+
+    public function escreve_update($nome_tabela, $query_where_primary_key) {
+        $retorno = " function update() {
         \$post = \$this->input->post();
        \n\$this->db->reset_query();\n
     " . $query_where_primary_key . "
@@ -116,10 +120,11 @@ class  " . $nome_model . " extends CI_Model {
         \$log->insert(\$this->db->select());     
         return \$retorno;
     }";
-      return $retorno;
+        return $retorno;
     }
-    public function escreve_busca_todos($nome_tabela,$join){
-      $retorno = " function busca_todos(\$limit=null, \$apartir_de_que_registro=null) {       
+
+    public function escreve_busca_todos($nome_tabela, $join) {
+        $retorno = " function " . $this->ci->lang->line('model_busca_todos') . "(\$limit=null, \$apartir_de_que_registro=null) {       
     \$this->db->reset_query();
         if(!empty(\$limit)){
             \$this->db->limit(\$limit, \$apartir_de_que_registro);
@@ -129,46 +134,45 @@ class  " . $nome_model . " extends CI_Model {
         return \$query->result();
     }
     ";
-    return $retorno;
-      
+        return $retorno;
     }
-    public function escreve_busca_um($nome_tabela,$query_where_busca_um,$query_where_input,$join,$query_where_busca_um_quantidade){
-      
-        $sizeof="";
-       if($query_where_busca_um_quantidade==1){
-        $sizeof=" if(sizeof(\$result) > 0){
+
+    public function escreve_busca_um($nome_tabela, $query_where_busca_um, $query_where_input, $join, $query_where_busca_um_quantidade) {
+
+        $sizeof = "";
+        if ($query_where_busca_um_quantidade == 1) {
+            $sizeof = " if(sizeof(\$result) > 0){
           return \$result[0];
         }else{
             return null;
         }";
-       }
-       else{
-           $sizeof=" if(sizeof(\$result) > 0){
+        } else {
+            $sizeof = " if(sizeof(\$result) > 0){
           return \$result;
         }else{
             return null;
         }";
-       }
-        $retorno = "function busca_um(" . $query_where_busca_um . ") {
+        }
+        $retorno = "function " . $this->ci->lang->line('model_busca_um') . "(" . $query_where_busca_um . ") {
         \n\$this->db->reset_query();\n       
          " . $query_where_input . "
           " . $join . "
         \$query = \$this->db->get('" . $nome_tabela . "');
        \$result= \$query->result();
-       ".$sizeof."
+       " . $sizeof . "
        
     }";
-    return $retorno;       
-    
+        return $retorno;
     }
-    public function escreve_busca_um_array($nome_tabela,$join){
-      $retorno = "  
+
+    public function escreve_busca_um_array($nome_tabela, $join) {
+        $retorno = "  
         /*
         \$arry_where = array(
                     'campo'=>\$cliente
                         );
   */                      
-  function busca_um_array(\$arry_where) {
+  function " . $this->ci->lang->line('model_busca_um_array') . "(\$arry_where) {
        foreach (\$arry_where as \$key => \$value) {
                \$this->db->where(\$key, \$value);
         }
@@ -184,10 +188,11 @@ class  " . $nome_model . " extends CI_Model {
 
     }
 ";
-      return $retorno;  
+        return $retorno;
     }
-    public function escreve_excluir($nome_tabela,$query_where_primary_key){
-     $retorno = "function excluir() {
+
+    public function escreve_excluir($nome_tabela, $query_where_primary_key) {
+        $retorno = "function " . $this->ci->lang->line('model_excluir') . "() {
         \$this->db->reset_query();
         \$post = \$this->input->post();
         " . $query_where_primary_key . "
@@ -197,13 +202,13 @@ class  " . $nome_model . " extends CI_Model {
         \$log->insert(\$this->db->select());
     }
     ";
-       return $retorno; 
+        return $retorno;
     }
 
     public function escreve_join($tabela) {
-        $ci = & get_instance();
+        $this->ci = & get_instance();
 
-        $referencias = $ci->DBA->busca_todas_referencias($tabela);
+        $referencias = $this->ci->DBA->busca_todas_referencias($tabela);
         $join = "";
         if (!empty($referencias)) {
 
