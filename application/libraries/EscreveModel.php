@@ -66,7 +66,7 @@ class  " . $nome_model . " extends CI_Model {
     }
 
     public function escreve_insert($nome_tabela) {
-        $retorno = "function insert() {
+        $retorno = "function ".$this->ci->lang->line('model_cadastrar')."() {
         \$post = \$this->input->post();
         foreach (\$this->array_variaveis as \$value) {
             if (!empty(\$post[\$value])) {

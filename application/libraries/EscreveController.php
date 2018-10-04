@@ -52,7 +52,7 @@ class " . $nome_view . " extends CI_Controller {
         \$data['title'] = 'Lista de $nome_view';
         " . $this->cabecalho . "
         \$this->load->model('" . $nome_model . "');
-        \$data['busca_todas']= \$this-> " . $nome_model . "->busca_todos();
+        \$data['busca_todas']= \$this-> " . $nome_model . "->" . $this->ci->lang->line('model_busca_todos') . "();
         \$data['insert_result'] = \$this->session->flashdata('insert_result');
         \$this->load->view('" . $nome_view . "/listar', \$data);
         \$this->load->view('layout/web_footer');
@@ -65,7 +65,7 @@ class " . $nome_view . " extends CI_Controller {
      */
 
     public function escreve_cadastrar($nome_view, $nome_model, $rules = null, $rules_ativo = null) {
-        $retorno = "\npublic function cadastrar() {
+        $retorno = "\npublic function " . $this->ci->lang->line('model_busca_todos') . "() {
         
                 
         \$post = \$this->input->post(); 
@@ -74,7 +74,7 @@ class " . $nome_view . " extends CI_Controller {
             " . $this->form_valitador($nome_view, $rules, $rules_ativo) . "
                 
             \$this->load->model('" . $nome_model . "');
-            \$insert_result = \$this-> " . $nome_model . "->insert();
+            \$insert_result = \$this-> " . $nome_model . "->".$this->ci->lang->line('model_cadastrar')."();
             }
             \$this->session->set_flashdata('insert_result', \$insert_result);
             " . $this->form_valitador_close($rules_ativo) . "
@@ -132,7 +132,7 @@ class " . $nome_view . " extends CI_Controller {
                 
         \$this->load->model('" . $nome_model . "');
         " . $pk . "
-        \$" . $nome_view . " = \$this-> " . $nome_model . "->busca_um(" . $id . ");
+        \$" . $nome_view . " = \$this-> " . $nome_model . "->" . $this->ci->lang->line('model_busca_um') . "(" . $id . ");
         \$data['item']= \$" . $nome_view . ";
         
         " . $this->cabecalho . "
