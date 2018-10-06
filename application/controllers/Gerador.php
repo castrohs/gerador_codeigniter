@@ -42,6 +42,7 @@ class Gerador extends CI_Controller {
 
         $this->DBA->db1 = $this->DBA->conecta($get['novo_banco']);
         $data['bootstrap']=$get['bootstrap'];
+        $data['rules_ativo']=$get['rules_ativo'];
         $data['tabelas'] = $this->DBA->busca_lista_de_tabelas($this->DBA->db1);
         
         $data['tables_in'] = 'Tables_in_' . $this->novo_banco;

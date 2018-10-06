@@ -3,16 +3,20 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class EscreveView {
-   
     var $icone_editar ;
     var $icone_remover ;
     var $icone_adicionar ;
+    var $ci;
 
-    function escreve_formulario($tabela = null, $formulario) {
+    function escreve_formulario($tabela = null, $formulario, $rules_ativo = true) {
+        $this->ci = &get_instance();
         $form = '';
-        
+        $rules = '';
         foreach ($formulario as $key => $f) {
-            $form .= "<div class='form-group'>
+            if ($rules_ativo) {
+                $rules = "<?php echo form_error('" . $f->campo->Field . ")'; ?>";
+            }
+            $form .= $rules . "<div class='form-group'>
   <label class='col-md-4  control-label' for='" . $f->campo->Field . "'>" . $f->campo->Field . "</label>  
   <div class='col-md-4'>
   " . $f->formulario . "
@@ -88,7 +92,8 @@ class EscreveView {
                         <tr>
 
                         ' . $cabecalho_tabela . '
-
+                        <th class=""></th>
+                        <th class=""></th>
 
 
                         </tr>
@@ -140,13 +145,16 @@ class EscreveView {
         return ($result);
     }
 
-    function escreve_formulario_edit($tabela, $formulario, $tamanho_da_col = 'col-md-4') {
+    function escreve_formulario_edit($tabela, $formulario, $tamanho_da_col = 'col-md-4', $rules_ativo = true) {
 
 
         $form = '';
+        $rules = '';
         foreach ($formulario as $key => $f) {
-
-            $form .= "<div class='form-group'>"
+            if ($rules_ativo) {
+                $rules = "<?php echo form_error('" . $f->campo->Field . ")'; ?>";
+            }
+            "<div class='form-group'>"
                     . "<label class='" . $tamanho_da_col . " control-label"
                     . "' for='" . $f->campo->Field . "'>" . $f->campo->Field . "</label>"
                     . "<div class='" . $tamanho_da_col . "'>"
@@ -171,7 +179,15 @@ class EscreveView {
         return ($result);
     }
 
-    function escreve_formulario_remover($tabela, $formulario, $tamanho_da_col = 'col-md-4') {
+    /**
+     * 
+     * @param type $tabela
+     * @param type $keys
+     * @param type $tamanho_da_col
+     * @return type
+     * Sob analise ainda
+     */
+    function escreve_formulario_remover($tabela, $keys, $tamanho_da_col = 'col-md-4') {
 
 
         $result = ""

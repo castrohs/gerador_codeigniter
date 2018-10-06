@@ -1,4 +1,4 @@
-Este projeto é feito em codeigniter e é um gerador de codigo base para o mesmo.
+Este projeto é feito em codeigniter 3.x e é um gerador de codigo base para o mesmo.
 Utilizando o sgbd como base dos dados.
 Ele gera diversos dados:
 Escreve uma controller

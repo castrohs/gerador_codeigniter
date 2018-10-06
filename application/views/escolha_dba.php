@@ -49,6 +49,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     </select>
   </div>
 </div>
+<div class="form-group">
+  <label class="col-md-4 control-label" for="rules_ativo">Ativar form validation</label>
+  <div class="col-md-4">
+    <select id="rules_ativo" name="rules_ativo" class="form-control">
+      <option value="1">SIM</option>
+      <option value="0">NÃO</option>
+    </select>
+  </div>
+</div>
 
 
 
