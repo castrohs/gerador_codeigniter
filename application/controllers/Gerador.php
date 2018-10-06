@@ -39,14 +39,16 @@ class Gerador extends CI_Controller {
              $this->DBA->senha =  $this->session->senha;
       
         
-        
+
         $this->DBA->db1 = $this->DBA->conecta($get['novo_banco']);
+        $data['bootstrap']=$get['bootstrap'];
         $data['tabelas'] = $this->DBA->busca_lista_de_tabelas($this->DBA->db1);
         
         $data['tables_in'] = 'Tables_in_' . $this->novo_banco;
         $data['quantas_letras_remover'] = $this->session->quantas_letras_remover;
+
         $this->load->view('layout/web_head');
-        $this->load->view('gerador', $data);
+        $this->load->view('gerador', $data);;
     }
 
     public function conecta() {

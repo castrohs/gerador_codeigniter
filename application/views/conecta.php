@@ -57,6 +57,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   <div class="col-md-4">
       <input id="quantas_letras_remover" name="quantas_letras_remover" type="text"
              placeholder="" class="form-control input-md" value="3">
+        <span class="help-block">Quantidade de letras do prefixo de sua tabela</span>  
     
   </div>
 </div>

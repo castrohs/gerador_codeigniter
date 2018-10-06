@@ -38,6 +38,17 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             </select>
                         </div>
                     </div>
+                    
+                    <!-- Select Basic -->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="bootstrap">Versão Bootsptra</label>
+  <div class="col-md-4">
+    <select id="bootstrap" name="bootstrap" class="form-control">
+      <option value="3">3</option>
+      <option value="4">4</option>
+    </select>
+  </div>
+</div>
 
 
 
