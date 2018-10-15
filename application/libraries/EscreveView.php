@@ -47,12 +47,14 @@ class EscreveView {
         $cabecalho_tabela = '';
         $item_tabela = '';
         $item_key = '';
+        $item_key_ = '';
         foreach ($formulario as $key => $f) {
             $cabecalho_tabela .= '<th class="">' . $f->campo->Field . '</th>';
             $item = "<?php echo \$item->" . $f->campo->Field . " ?>";
             $item_tabela .= '<td >' . $item . '</td>';
             if (!empty($f->campo->Key)) {
-                $item_key .= $f->campo->Field . "_";
+                $item_key_ .= $f->campo->Field . "_";
+                $item_key .= $f->campo->Field . "";
             }
 //       public 'campo' => 
 //        object(stdClass)[54]
@@ -109,11 +111,11 @@ class EscreveView {
                                 <tr >
                                    ' . $item_tabela . '
                                     <td><a href="#" class="btn  btn-primary right" data-toggle="modal"
-                                    data-target="#editar_' . $item_key . '">
+                                    data-target="#editar_' . $item_key_ . '<?php echo $item->' . $item_key . '?>">
                                     ' . $this->icone_editar . ' </a></td>
 
                                     <td>
-                                        <a href="#" data-toggle="modal" data-target="#remover_' . $item_key . '" class="btn btn-danger">
+                                        <a href="#" data-toggle="modal" data-target="#remover_' . $item_key_ . '<?php echo $item->' . $item_key . '?> class="btn btn-danger">
                                             ' . $this->icone_remover . '
                                         </a>
                                     </td>
