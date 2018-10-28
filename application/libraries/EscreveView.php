@@ -17,26 +17,24 @@ class EscreveView {
                 $rules = "<?php echo form_error('" . $f->campo->Field . ")'; ?>";
             }
             $form .= $rules . "<div class='form-group'>
-  <label class='col-md-4  control-label' for='" . $f->campo->Field . "'>" . $f->campo->Field . "</label>  
-  <div class='col-md-4'>
-  " . $f->formulario . "
-  
-  
-  </div>
-</div>";
+  <label class='col-md-4  control-label' for='" . $f->campo->Field . "'>" . $f->campo->Field . "</label>"  
+  ."<div class='col-md-4'>
+  ". $f->formulario 
+  . "</div>"
+. "</div>";
         }
 
         $result = ""
                 . "<form action='<?php echo base_url('" . $tabela . "/cadastrar') ?>' method='post' name='adicionar' id='adicionar' class='form-horizontal'>"
                 . "<legend>" . $tabela . "</legend>
-" . $form . "<div class='form-group'>"
-                . "<label class='col-md-4 control-label' for='submit'></label>"
-                . "<div class='col-md-4'>"
-                . "    <button id='submit' name='submit' class='btn btn-success'>Enviar</button>"
-                . "  </div>"
-                . "</div>"
-                . "</fieldset>"
-                . "</form>"
+" . $form . "<div class='form-group'> \n"
+                . "<label class='col-md-4 control-label' for='submit'></label> \n"
+                . "<div class='col-md-4'> \n"
+                . " <button id='submit' name='submit' class='btn btn-success'>Enviar</button>\n"
+                . "  </div>\n"
+                . "</div>\n"
+                . "</fieldset>\n"
+                . "</form>\n"
                 . "";
 
         return ($result);
@@ -160,20 +158,20 @@ class EscreveView {
                     . "<div class='" . $tamanho_da_col . "'>"
                     . $f->formulario_edit
                     . "</div>"
-                    . "</div>";
+                    . "</div> \n";
         }
 
         $result = ""
-                . "<form action='<?php echo base_url('" . $tabela . "/atualizar') ?>' method='post' name='editar' id='editar' class='form-horizontal'>"
+                . "<form action='<?php echo base_url('" . $tabela . "/atualizar') ?>' method='post' name='editar' id='editar' class='form-horizontal' \n"
                 . "<fieldset>"
                 . "<legend>" . $tabela . "</legend>"
                 . $form
-                . "<div class='form-group'>"
+                . "\n <div class='form-group'> \n"
                 . "<label class='col-md-4 control-label' for='submit'></label>"
-                . "    <button id='submit' name='submit' class='btn btn-success '>Enviar</button>"
-                . "</div>"
-                . "</fieldset>"
-                . "</form>"
+                . "    <button id='submit' name='submit' class='btn btn-success '>Enviar</button> \n"
+                . "</div> \n"
+                . "</fieldset> \n"
+                . "</form> \n"
                 . "";
 
         return ($result);
@@ -196,7 +194,7 @@ class EscreveView {
                 . "<legend>" . $tabela . "</legend>"
                 . "<div class='form-group'>"
                 . "<label class='col-md-4 control-label' for='submit'></label>"
-                . "    <button id='submit' name='submit' class='btn btn-success '>Enviar</button>"
+                . "\n<button id='submit' name='submit' class='btn btn-success '>Enviar</button>"
                 . "</div>"
                 . "</fieldset>"
                 . "</form>"
@@ -230,7 +228,7 @@ class EscreveView {
 //        double;
             $text = " <input type='text'  name = '" . $campo->Field . "' id = '" . $campo->Field . "' maxlength = '200'  class='form-control input-md'>";
         }
-        return "" . $text . "";
+        return "" . $text . " \n";
     }
 
     function gen_form_edit($campo) {
