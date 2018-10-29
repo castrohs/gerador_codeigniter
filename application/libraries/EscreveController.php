@@ -65,7 +65,7 @@ class " . $nome_view . " extends CI_Controller {
      */
 
     public function escreve_cadastrar($nome_view, $nome_model, $rules = null, $rules_ativo = null) {
-        $retorno = "\npublic function " . $this->ci->lang->line('model_busca_todos') . "() {
+        $retorno = "\npublic function " . $this->ci->lang->line('model_cadastrar') . "() {
         
                 
         \$post = \$this->input->post(); 
@@ -75,7 +75,7 @@ class " . $nome_view . " extends CI_Controller {
                 
             \$this->load->model('" . $nome_model . "');
             \$insert_result = \$this-> " . $nome_model . "->".$this->ci->lang->line('model_cadastrar')."();
-            }
+            
             \$this->session->set_flashdata('insert_result', \$insert_result);
             " . $this->form_valitador_close($rules_ativo) . "
         }
@@ -103,7 +103,7 @@ class " . $nome_view . " extends CI_Controller {
                 
             \$this->load->model('" . $nome_model . "');
             \$insert_result = \$this-> " . $nome_model . "->update();
-        }
+        
          " . $this->form_valitador_close($rules_ativo) . " 
         \$this->session->set_flashdata('insert_result', \$insert_result);
         }
@@ -184,9 +184,9 @@ class " . $nome_view . " extends CI_Controller {
 
     public function form_valitador_close($ativo = true) {
         $retorno = "";
-//        if ($ativo) {
-//            $retorno = "}";
-//        };
+        if ($ativo) {
+            $retorno = "}";
+        };
         return $retorno;
     }
 
