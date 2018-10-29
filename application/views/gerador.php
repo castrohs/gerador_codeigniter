@@ -130,7 +130,8 @@ foreach ($campos as $key => $campo) {
     }   
    
         
-    ?><div style="border-top-color: black ; border-width: 1px;">
+    ?>
+<div style="border-top-color: black ; border-width: 1px;">
         <h3>Auto complete</h3><?php
     echo "<a href='#Voltar'>Voltar</a> ";
     echo "<a name='AutoComplete'></a> ";
@@ -142,6 +143,24 @@ foreach ($campos as $key => $campo) {
   echo "<div id='div_auto_complete'>";
     $echo = $this->escreveautocomplete->escreve_auto_complete($auto_complete); 
     highlight_string($echo);
+echo "</div>";
+
+    ?>
+
+</div>
+<div style="border-top-color: black ; border-width: 1px;">
+        <h3>Backup Mysql Link</h3><?php
+    echo "<a href='#Voltar'>Voltar</a> ";
+    echo "<a name='backup_data_base'></a> ";
+    echo "<br> ";
+    
+    echo $this->escreveview->escreve_btn("backup_data_base") ;
+    
+    
+  echo "<div id='backup_data_base'>";
+  
+  
+    highlight_string($this->escrevemysqlbackup->gera($onde_salvar,$tabelas));
 echo "</div>";
 
     ?>

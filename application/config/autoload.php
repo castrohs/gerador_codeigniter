@@ -58,7 +58,8 @@ $autoload['packages'] = array();
 |
 |	$autoload['libraries'] = array('user_agent' => 'ua');
 */
-$autoload['libraries'] = array('EscreveAutoComplete','EscreveController','EscreveModel','EscreveView','session');
+$autoload['libraries'] = array('EscreveAutoComplete','EscreveController','EscreveModel','EscreveView','session',
+                                'EscreveMysqlBackup');
 
 /*
 | -------------------------------------------------------------------

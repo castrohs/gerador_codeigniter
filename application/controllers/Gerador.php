@@ -37,7 +37,9 @@ class Gerador extends CI_Controller {
              $this->DBA->hostname =  $this->session->hostname;
              $this->DBA->administrador =  $this->session->administrador;
              $this->DBA->senha =  $this->session->senha;
-      
+             
+        
+             $data['onde_salvar']=$get['onde_salvar'];
         
 
         $this->DBA->db1 = $this->DBA->conecta($get['novo_banco']);

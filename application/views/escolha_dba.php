@@ -10,7 +10,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
     </head>
     <body>
-        <a href="<?php echo base_url()?>">Voltar</a><br>
+        <a href="<?php echo base_url() ?>">Voltar</a><br>
         <div id="container">
             <form class="form-horizontal" action="<?php echo base_url('Gerador/gera') ?>"  method="post">
                 <fieldset>
@@ -38,26 +38,32 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             </select>
                         </div>
                     </div>
-                    
+
                     <!-- Select Basic -->
-<div class="form-group">
-  <label class="col-md-4 control-label" for="bootstrap">Versão Bootsptra</label>
-  <div class="col-md-4">
-    <select id="bootstrap" name="bootstrap" class="form-control">
-      <option value="3">3</option>
-      <option value="4">4</option>
-    </select>
-  </div>
-</div>
-<div class="form-group">
-  <label class="col-md-4 control-label" for="rules_ativo">Ativar form validation</label>
-  <div class="col-md-4">
-    <select id="rules_ativo" name="rules_ativo" class="form-control">
-      <option value="1">SIM</option>
-      <option value="0">NÃO</option>
-    </select>
-  </div>
-</div>
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="bootstrap">Versão Bootsptra</label>
+                        <div class="col-md-4">
+                            <select id="bootstrap" name="bootstrap" class="form-control">
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="rules_ativo">Ativar form validation</label>
+                        <div class="col-md-4">
+                            <select id="rules_ativo" name="rules_ativo" class="form-control">
+                                <option value="1">SIM</option>
+                                <option value="0">NÃO</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="one_salvar">Caminho para a linha de backup</label>
+                        <div class="col-md-4">
+                            <input name="onde_salvar" value="" class="form-control" placeholder="/xx/yy/table.bkp">
+                        </div>
+                    </div>
 
 
 
