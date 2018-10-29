@@ -30,7 +30,7 @@ class " . $nome_view . " extends CI_Controller {
             parent::__construct();
     }
     \npublic function index() {
-        \$this->listar();
+        \$this->". $this->ci->lang->line('controller_listar') ."();
     }";
         
         $controller .= "\n" . $this->escreve_listar($nome_view, $nome_model);
@@ -184,9 +184,9 @@ class " . $nome_view . " extends CI_Controller {
 
     public function form_valitador_close($ativo = true) {
         $retorno = "";
-        if ($ativo) {
-            $retorno = "}";
-        }
+//        if ($ativo) {
+//            $retorno = "}";
+//        };
         return $retorno;
     }
 
