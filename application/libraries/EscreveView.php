@@ -113,7 +113,7 @@ class EscreveView {
                                     ' . $this->icone_editar . ' </a></td>
 
                                     <td>
-                                        <a href="#" data-toggle="modal" data-target="#remover_' . $item_key_ . '<?php echo $item->' . $item_key . '?> class="btn btn-danger">
+                                        <a href="#" data-toggle="modal" data-target="#remover_' . $item_key_ . '<?php echo $item->' . $item_key . '?>" class="btn btn-danger">
                                             ' . $this->icone_remover . '
                                         </a>
                                     </td>
@@ -187,22 +187,32 @@ class EscreveView {
      * @return type
      * Sob analise ainda
      */
-    function escreve_formulario_remover($tabela, $keys, $tamanho_da_col = 'col-md-4') {
+    function escreve_formulario_remover($tabela, $variaveis_do_banco) {
+        $formulario="";
+    
+        foreach ($variaveis_do_banco as $key => $f) {
+            if(!empty($f->formulario_remover)){
+              $formulario.=$f->formulario_remover."\n";
+            }
+        }
 
-
+        
         $result = ""
-                . "<form action='<?php echo base_url() ?>" . $tabela . "/remover' method='post' class='form-horizontal'>"
-                . "<fieldset>"
-                . "<legend>" . $tabela . "</legend>"
-                . "<div class='form-group'>"
+                . "<form action='<?php echo base_url('" . $tabela . "/remover') ?>' method='post' name='editar' id='editar' class='form-horizontal' \n"
+                . "<fieldset>\n"
+                . "<legend>" . $tabela . "</legend>\n"
+                . $formulario
+                . "\n <div class='form-group'> \n"
                 . "<label class='col-md-4 control-label' for='submit'></label>"
-                . "\n<button id='submit' name='submit' class='btn btn-success '>Enviar</button>"
-                . "</div>"
-                . "</fieldset>"
-                . "</form>"
+                . "    <button id='submit' name='submit' class='btn btn-danger '>Remover</button> \n"
+                . "</div> \n"
+                . "</fieldset> \n"
+                . "</form> \n"
                 . "";
 
-        return html_escape($result);
+        
+
+        return ($result);
     }
 
     function gen_form($campo) {
@@ -231,6 +241,23 @@ class EscreveView {
             $text = " <input type='text'  name = '" . $campo->Field . "' id = '" . $campo->Field . "' maxlength = '200'  class='form-control input-md'>";
         }
         return "" . $text . " \n";
+    }
+    function gen_form_remover($campo) {
+        
+        $exp = explode('(', $campo->Type);
+       $text="";
+        if ($campo->Key == "PRI") {
+        $text = '';
+        if (count($exp) > 1) {
+            $text = " <input type='text' id = '"
+                    . "name = '" . $campo->Field ."'"
+                    . "value = '<?php echo \$item->" . $campo->Field . "?>' hidden >";
+                    
+
+        }
+     
+    }
+       return "" . $text . "";
     }
 
     function gen_form_edit($campo) {
