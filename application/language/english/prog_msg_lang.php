@@ -7,3 +7,4 @@ $lang['model_excluir']="excluir";
 $lang['model_cadastrar']="insert";
 $lang['controller_listar']="list";
 $lang['controller_busca_um']="find_one";
+$lang['view_cadastrar']="cadastrar";

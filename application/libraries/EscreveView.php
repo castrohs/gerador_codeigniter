@@ -25,7 +25,7 @@ class EscreveView {
         }
 
         $result = ""
-                . "<form action='<?php echo base_url('" . $tabela . "/cadastrar') ?>' method='post' name='adicionar' id='adicionar' class='form-horizontal'>"
+                . "<form action='<?php echo base_url('" . $tabela . "/".$this->ci->lang->line('view_cadastrar')."') ?>' method='post' name='adicionar' id='adicionar' class='form-horizontal'>"
                 . "<legend>" . $tabela . "</legend>
 " . $form . "<div class='form-group'> \n"
                 . "<label class='col-md-4 control-label' for='submit'></label> \n"
