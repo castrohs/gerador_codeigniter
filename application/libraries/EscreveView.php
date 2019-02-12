@@ -111,12 +111,11 @@ class EscreveView {
                                 <tr >
                                    ' . $item_tabela . '
                                     <td><a href="#" class="btn  btn-primary right" data-toggle="modal"
-                                    data-target="#editar_' . $item_key_ . '<?php ' . $data_target_item_key . '?>">
+                                    data-target="#editar_<?php ' . $data_target_item_key . '?>">
                                     ' . $this->icone_editar .'" </a></td>
 
                                     <td>
-                                        <a href="#" data-toggle="modal" data-target="#remover_' . $item_key_ 
-                                        . '<?php ' . $data_target_item_key . '?>" class="btn btn-danger">
+                                        <a href="#" data-toggle="modal" data-target="#remover_<?php ' . $data_target_item_key . '?>" class="btn btn-danger">
                                             ' . $this->icone_remover . '
                                         </a>
                                     </td>
@@ -125,9 +124,14 @@ class EscreveView {
 
 
 //formularios
-                                <div class="modal fade" id="editar_' . $item_key_ 
-                                        . '<?php ' . $data_target_item_key . '?>" tabindex="-1" role="dialog" aria-labelledby="remover_' . $item_key_ 
-                                        . '<?php ' . $data_target_item_key . '?>" aria-hidden="true">
+//#
+//#
+//#
+//editar
+//#
+//#
+
+                                <div class="modal fade" id="editar_<?php ' . $data_target_item_key . '?>" tabindex="-1" role="dialog" aria-labelledby="editar_<?php ' . $data_target_item_key . '?>" aria-hidden="true">
                                   <div class="modal-dialog" role="document">
                                     <div class="modal-content">
                                       <div class="modal-header">
@@ -143,16 +147,20 @@ class EscreveView {
                                       </div>
                                       <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                        <button type="button" class="btn btn-primary">Save changes</button>
+                                        <button type="button" class="btn btn-primary">Excluir</button>
+                                        
                                       </div>
                                     </div>
                                   </div>
                                 </div>
                             
+//#
+//#
+//remover
+//#
+//#
 
-<div class="modal fade" id="remover_' . $item_key_ 
-                                        . '<?php ' . $data_target_item_key . '?>" tabindex="-1" role="dialog" aria-labelledby="remover_' . $item_key_ 
-                                        . '<?php ' . $data_target_item_key . '?>" aria-hidden="true">
+<div class="modal fade" id="remover_<?php ' . $data_target_item_key . '?>" tabindex="-1" role="dialog" aria-labelledby="remover_<?php ' . $data_target_item_key . '?>" aria-hidden="true">
                                   <div class="modal-dialog" role="document">
                                     <div class="modal-content">
                                       <div class="modal-header">
@@ -161,15 +169,17 @@ class EscreveView {
                                           <span aria-hidden="true">&times;</span>
                                         </button>
                                       </div>
+                                      <form action="<?php echo base_url() ?>' . $nome_controller . '/remover" method="post" class="form-horizontal">
                                       <div class="modal-body">
                                        '.
                                         $this->escreve_formulario_remover($nome_controller, $formulario)
                                         .'
                                       </div>
                                       <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                        <button type="button" class="btn btn-primary">Save changes</button>
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                                        <button type="submit" class="btn btn-primary">Remover</button>
                                       </div>
+                                      </form>
                                     </div>
                                   </div>
                                 </div>
@@ -266,23 +276,12 @@ class EscreveView {
     function escreve_formulario_remover($tabela, $formulario,$tamanho_da_col ='col-md-4') {
 $form="";
  foreach ($formulario as $key => $f) {
- if($f->campo->Key =="PRI"){
+ 
        
-  
-          $form.=  "<div class='form-group' hidden>"
-                    
-                    . "<div class='" . $tamanho_da_col . "'>"
-                    . $f->formulario_remover
-                    . "</div>"
-                    . "</div> \n";
-        }else{
-              $form.=  "<div class='form-group'>"
-                    . "<span>" . $f->campo->Field . "</span>"
-                    . "<span>"
-                    .$f->campo
-                    . "</span>"
-                    . "</div> \n";
-        }
+
+                   $form .= $this->gen_form_remover($f->campo);
+ 
+//        }
         }
 
 
@@ -290,16 +289,16 @@ $form="";
         
         
         $result = ""
-                . "<form action='<?php echo base_url() ?>" . $tabela . "/remover' method='post' class='form-horizontal'>"
+                
                 . "<fieldset>"
                 . "<legend>" . $tabela . "</legend>"
                 . "<div class='form-group'>"
                 . $form
                 . "\n <label class='col-md-4 control-label' for='submit'></label>"
-                . "\n<button id='submit' name='submit' class='btn btn-success '>Enviar</button>"
+                
                 . "</div>"
                 . "</fieldset>"
-                . "</form>"
+               
                 . "";
 
         return ($result);
@@ -390,6 +389,7 @@ $form="";
             $this->icone_adicionar = '<i class="fas fa-plus"></i>';
         }
     }
+    
     function gen_form_remover($campo) {
         //       public 'campo' => 
 //        object(stdClass)[54]
@@ -403,16 +403,20 @@ $form="";
         
         $exp = explode('(', $campo->Type);
         $required = "";
-        if ($campo->Null == "NO") {
+        if($campo->Key =="PRI"){
       
         
-        $text = '';
+        $text = "<div class='form-group' hidden>";
        
             $text .= " <input type='text' id = '" . $campo->Field . "' name = '" . $campo->Field . "'"
                     
-                    . "value = '<?php echo \$item->" . $campo->Field . "?>'  ";
+                    . "value = '<?php echo \$item->" . $campo->Field . "?>' > "
+                    ."</div>";
+            
         }else{
-           $text .="<span><?php echo \$item->" . $campo->Field . "?><span>";
+            $text = "<div class='form-group' >";
+           $text .="<span>" . $campo->Field . " <?php echo \$item->" . $campo->Field . "?></span>"
+                   ."</div>";
         } 
 
         return "" . $text . "";
