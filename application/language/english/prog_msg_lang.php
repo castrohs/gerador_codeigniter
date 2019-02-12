@@ -6,3 +6,6 @@ $lang['model_busca_um']="find_one";
 $lang['model_excluir']="excluir";
 $lang['model_cadastrar']="insert";
 $lang['controller_listar']="list";
+$lang['vw_bem_vindo']="Bem vindo ao gerador";
+$lang['vw_nome_form1']="Conecte-se ao banco";
+$lang['vw_form1_localizacao']="Conecte-se ao banco";

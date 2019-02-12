@@ -46,6 +46,7 @@ class EscreveView {
         $item_tabela = '';
         $item_key = '';
         $item_key_ = '';
+        $data_target_item_key = '';
         foreach ($formulario as $key => $f) {
             $cabecalho_tabela .= '<th class="">' . $f->campo->Field . '</th>';
             $item = "<?php echo \$item->" . $f->campo->Field . " ?>";
@@ -53,6 +54,7 @@ class EscreveView {
             if (!empty($f->campo->Key)) {
                 $item_key_ .= $f->campo->Field . "_";
                 $item_key .= $f->campo->Field . "";
+                $data_target_item_key .= 'echo $item->'.$f->campo->Field . "; ";
             }
 //       public 'campo' => 
 //        object(stdClass)[54]
@@ -109,11 +111,12 @@ class EscreveView {
                                 <tr >
                                    ' . $item_tabela . '
                                     <td><a href="#" class="btn  btn-primary right" data-toggle="modal"
-                                    data-target="#editar_' . $item_key_ . '<?php echo $item->' . $item_key . '?>">
-                                    ' . $this->icone_editar . ' </a></td>
+                                    data-target="#editar_' . $item_key_ . '<?php ' . $data_target_item_key . '?>">
+                                    ' . $this->icone_editar .'" </a></td>
 
                                     <td>
-                                        <a href="#" data-toggle="modal" data-target="#remover_' . $item_key_ . '<?php echo $item->' . $item_key . '?> class="btn btn-danger">
+                                        <a href="#" data-toggle="modal" data-target="#remover_' . $item_key_ 
+                                        . '<?php ' . $data_target_item_key . '?>" class="btn btn-danger">
                                             ' . $this->icone_remover . '
                                         </a>
                                     </td>
@@ -121,6 +124,55 @@ class EscreveView {
                                 </tr>
 
 
+//formularios
+                                <div class="modal fade" id="editar_' . $item_key_ 
+                                        . '<?php ' . $data_target_item_key . '?>" tabindex="-1" role="dialog" aria-labelledby="remover_' . $item_key_ 
+                                        . '<?php ' . $data_target_item_key . '?>" aria-hidden="true">
+                                  <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                      <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                          <span aria-hidden="true">&times;</span>
+                                        </button>
+                                      </div>
+                                      <div class="modal-body">
+                                        '.
+                                        $this->escreve_formulario_edit($nome_controller, $formulario)
+                                        .'
+                                      </div>
+                                      <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-primary">Save changes</button>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                            
+
+<div class="modal fade" id="remover_' . $item_key_ 
+                                        . '<?php ' . $data_target_item_key . '?>" tabindex="-1" role="dialog" aria-labelledby="remover_' . $item_key_ 
+                                        . '<?php ' . $data_target_item_key . '?>" aria-hidden="true">
+                                  <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                      <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                          <span aria-hidden="true">&times;</span>
+                                        </button>
+                                      </div>
+                                      <div class="modal-body">
+                                       '.
+                                        $this->escreve_formulario_remover($nome_controller, $formulario)
+                                        .'
+                                      </div>
+                                      <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-primary">Save changes</button>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
 
                                 <?php
                             }
@@ -134,7 +186,28 @@ class EscreveView {
 
                     </tbody>
                 </table>
-
+                
+<div class="modal fade" id="adicionar" tabindex="-1" role="dialog" aria-labelledby="adicionar" aria-hidden="true">
+                                  <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                      <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                          <span aria-hidden="true">&times;</span>
+                                        </button>
+                                      </div>
+                                      <div class="modal-body">
+                                                                                    '.
+                                        $this->escreve_formulario($nome_controller, $formulario)
+                                        .'
+                                      </div>
+                                      <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-primary">Save changes</button>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
             </div>
 
         </div>
@@ -150,11 +223,14 @@ class EscreveView {
 
         $form = '';
         $rules = '';
+        
+        
+        
         foreach ($formulario as $key => $f) {
             if ($rules_ativo) {
                 $rules = "<?php echo form_error('" . $f->campo->Field . ")'; ?>";
             }
-            "<div class='form-group'>"
+          $form.=  "<div class='form-group'>"
                     . "<label class='" . $tamanho_da_col . " control-label"
                     . "' for='" . $f->campo->Field . "'>" . $f->campo->Field . "</label>"
                     . "<div class='" . $tamanho_da_col . "'>"
@@ -187,22 +263,46 @@ class EscreveView {
      * @return type
      * Sob analise ainda
      */
-    function escreve_formulario_remover($tabela, $keys, $tamanho_da_col = 'col-md-4') {
+    function escreve_formulario_remover($tabela, $formulario,$tamanho_da_col ='col-md-4') {
+$form="";
+ foreach ($formulario as $key => $f) {
+ if($f->campo->Key =="PRI"){
+       
+  
+          $form.=  "<div class='form-group' hidden>"
+                    
+                    . "<div class='" . $tamanho_da_col . "'>"
+                    . $f->formulario_remover
+                    . "</div>"
+                    . "</div> \n";
+        }else{
+              $form.=  "<div class='form-group'>"
+                    . "<span>" . $f->campo->Field . "</span>"
+                    . "<span>"
+                    .$f->campo
+                    . "</span>"
+                    . "</div> \n";
+        }
+        }
 
 
+
+        
+        
         $result = ""
                 . "<form action='<?php echo base_url() ?>" . $tabela . "/remover' method='post' class='form-horizontal'>"
                 . "<fieldset>"
                 . "<legend>" . $tabela . "</legend>"
                 . "<div class='form-group'>"
-                . "<label class='col-md-4 control-label' for='submit'></label>"
+                . $form
+                . "\n <label class='col-md-4 control-label' for='submit'></label>"
                 . "\n<button id='submit' name='submit' class='btn btn-success '>Enviar</button>"
                 . "</div>"
                 . "</fieldset>"
                 . "</form>"
                 . "";
 
-        return html_escape($result);
+        return ($result);
     }
 
     function gen_form($campo) {
@@ -289,6 +389,33 @@ class EscreveView {
             $this->icone_remover = '<i class="fas fa-trash"></i>';
             $this->icone_adicionar = '<i class="fas fa-plus"></i>';
         }
+    }
+    function gen_form_remover($campo) {
+        //       public 'campo' => 
+//        object(stdClass)[54]
+//          public 'Field' => string 'agencia_capital_social' (length=22)
+//          public 'Type' => string 'double' (length=6)
+//          public 'Null' => string 'YES' (length=3)
+//          public 'Key' => string '' (length=0)
+//          public 'Default' => null
+//          public 'Extra' => string '' (length=0)
+//          public 'obrigatorio' => boolean false
+        
+        $exp = explode('(', $campo->Type);
+        $required = "";
+        if ($campo->Null == "NO") {
+      
+        
+        $text = '';
+       
+            $text .= " <input type='text' id = '" . $campo->Field . "' name = '" . $campo->Field . "'"
+                    
+                    . "value = '<?php echo \$item->" . $campo->Field . "?>'  ";
+        }else{
+           $text .="<span><?php echo \$item->" . $campo->Field . "?><span>";
+        } 
+
+        return "" . $text . "";
     }
 
 }
