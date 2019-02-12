@@ -169,7 +169,7 @@ class EscreveView {
                                           <span aria-hidden="true">&times;</span>
                                         </button>
                                       </div>
-                                      <form action="<?php echo base_url() ?>' . $nome_controller . '/remover" method="post" class="form-horizontal">
+                                      <form action="<?php echo base_url() ?>' . $nome_controller . '/excluir" method="post" class="form-horizontal">
                                       <div class="modal-body">
                                        '.
                                         $this->escreve_formulario_remover($nome_controller, $formulario)
