@@ -135,7 +135,7 @@ class EscreveView {
                                   <div class="modal-dialog" role="document">
                                     <div class="modal-content">
                                       <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                                        <h5 class="modal-title" id="exampleModalLabel">Edição : '.$nome_controller.'</h5>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                           <span aria-hidden="true">&times;</span>
                                         </button>
@@ -164,7 +164,7 @@ class EscreveView {
                                   <div class="modal-dialog" role="document">
                                     <div class="modal-content">
                                       <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                                        <h5 class="modal-title" id="exampleModalLabel">Remoção: ' . $nome_controller . '</h5>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                           <span aria-hidden="true">&times;</span>
                                         </button>
@@ -201,7 +201,7 @@ class EscreveView {
                                   <div class="modal-dialog" role="document">
                                     <div class="modal-content">
                                       <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                                        <h5 class="modal-title" id="exampleModalLabel">Adicionar novo Item</h5>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                           <span aria-hidden="true">&times;</span>
                                         </button>
@@ -252,7 +252,7 @@ class EscreveView {
         $result = ""
                 . "<form action='<?php echo base_url('" . $tabela . "/atualizar') ?>' method='post' name='editar' id='editar' class='form-horizontal' \n"
                 . "<fieldset>"
-                . "<legend>" . $tabela . "</legend>"
+                
                 . $form
                 . "\n <div class='form-group'> \n"
                 . "<label class='col-md-4 control-label' for='submit'></label>"
@@ -291,7 +291,7 @@ $form="";
         $result = ""
                 
                 . "<fieldset>"
-                . "<legend>" . $tabela . "</legend>"
+                
                 . "<div class='form-group'>"
                 . $form
                 . "\n <label class='col-md-4 control-label' for='submit'></label>"
