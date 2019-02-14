@@ -14,7 +14,7 @@ class EscreveView {
         $rules = '';
         foreach ($formulario as $key => $f) {
             if ($rules_ativo) {
-                $rules = "<?php echo form_error('" . $f->campo->Field . ")'; ?>";
+                $rules = "<?php echo form_error('" . $f->campo->Field . "'); ?>";
             }
             $form .= $rules . "<div class='form-group'>
   <label class='col-md-4  control-label' for='" . $f->campo->Field . "'>" . $f->campo->Field . "</label>"  
@@ -238,7 +238,7 @@ class EscreveView {
         
         foreach ($formulario as $key => $f) {
             if ($rules_ativo) {
-                $rules = "<?php echo form_error('" . $f->campo->Field . ")'; ?>";
+                $rules = "<?php echo form_error('" . $f->campo->Field . "'); ?>";
             }
           $form.=  "<div class='form-group'>"
                     . "<label class='" . $tamanho_da_col . " control-label"
