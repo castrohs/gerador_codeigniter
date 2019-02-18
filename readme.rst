@@ -1,5 +1,5 @@
 ***************
-Gerador de código para codeigniter 
+Gerador de código para codeigniter  ORM
 ***************
 
 
