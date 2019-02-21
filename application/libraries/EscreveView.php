@@ -30,11 +30,17 @@ class EscreveView {
                 . "<legend>" . $tabela . "</legend>
 " . $form . "<div class='form-group'> \n"
                 . "<label class='col-md-4 control-label' for='submit'></label> \n"
-                . "<div class='col-md-4'> \n"
-                . " <button id='submit' name='submit' class='btn btn-success'>Enviar</button>\n"
-                . "  </div>\n"
-                . "</div>\n"
+//                . "<div class='col-md-4'> \n"
+//                . " <button id='submit' name='submit' class='btn btn-success'>Enviar</button>\n"
+//                . "  </div>\n"
+//                . "</div>\n"
                 . "</fieldset>\n"
+                 . ' </div>
+                                      <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-primary">Editar</button>
+                                        
+                                      </div>'
                 . "</form>\n"
                 . "";
 
@@ -86,9 +92,6 @@ class EscreveView {
             <div class="panel-body">
 
 
-                <div class="col-md-12 col-xs-12"><p></p><input class="form-control filter" placeholder="Digite o ' . strtolower($nome_controller) . ' a ser buscado"  autocomplete="off"  name="titul"></div>
-
-                
 
                 <table class="table table-responsive table-hover">
                     <thead>
@@ -139,12 +142,7 @@ class EscreveView {
                                         '.
                                         $this->escreve_formulario_edit($nome_controller, $formulario,$rules_ativo)
                                         .'
-                                      </div>
-                                      <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                        <button type="button" class="btn btn-primary">Excluir</button>
-                                        
-                                      </div>
+                                     
                                     </div>
                                   </div>
                                 </div>
@@ -202,10 +200,7 @@ class EscreveView {
                                         $this->escreve_formulario($nome_controller, $formulario,$rules_ativo)
                                         .'
                                       </div>
-                                      <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                        <button type="button" class="btn btn-primary">Save changes</button>
-                                      </div>
+                                     
                                     </div>
                                   </div>
                                 </div>
@@ -245,13 +240,22 @@ class EscreveView {
                 . "<fieldset>"
                 
                 . $form
-                . "\n <div class='form-group'> \n"
-                . "<label class='col-md-4 control-label' for='submit'></label>"
-                . "    <button id='submit' name='submit' class='btn btn-success '>Enviar</button> \n"
-                . "</div> \n"
+//                . "\n <div class='form-group'> \n"
+//                . "<label class='col-md-4 control-label' for='submit'></label>"
+//                . "    <button id='submit' name='submit' class='btn btn-success '>Enviar</button> \n"
+//                . "</div> \n"
                 . "</fieldset> \n"
+                . ' </div>
+                                      <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-primary">Editar</button>
+                                        
+                                      </div>'
+                . ""
                 . "</form> \n"
                 . "";
+        
+        
 
         return ($result);
     }
