@@ -163,9 +163,9 @@ class " . $nome_view . " extends CI_Controller {
         return $retorno;
     }
 
-    public function form_valitador($nome_view, $rules, $ativo = true) {
+    public function form_valitador($nome_view, $rules, $ativo = 0) {
         $retorno = "";
-        if ($ativo) {
+        if ($ativo==1) {
             $retorno = "\$config['error_prefix'] = '<div class=\"error_prefix\">';
             \$config['error_suffix'] = '</div>';
             \$this->load->library('form_validation',\$config);

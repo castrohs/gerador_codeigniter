@@ -8,12 +8,13 @@ class EscreveView {
     var $icone_adicionar ;
     var $ci;
 
-    function escreve_formulario($tabela = null, $formulario, $rules_ativo = true) {
+    function escreve_formulario($tabela = null, $formulario, $rules_ativo = null) {
         $this->ci = &get_instance();
         $form = '';
         $rules = '';
+
         foreach ($formulario as $key => $f) {
-            if ($rules_ativo) {
+            if ($rules_ativo==1) {
                 $rules = "<?php echo form_error('" . $f->campo->Field . "'); ?>";
             }
             $form .= $rules . "<div class='form-group'>
@@ -40,7 +41,7 @@ class EscreveView {
         return ($result);
     }
 
-    function escreve_pagina_listar($nome_controller = null, $formulario,$bootstrap=3) {
+    function escreve_pagina_listar($nome_controller = null, $formulario,$bootstrap=3,$rules_ativo=null) {
         $this->icones_bootstrap($bootstrap);
         $cabecalho_tabela = '';
         $item_tabela = '';
@@ -142,7 +143,7 @@ class EscreveView {
                                       </div>
                                       <div class="modal-body">
                                         '.
-                                        $this->escreve_formulario_edit($nome_controller, $formulario)
+                                        $this->escreve_formulario_edit($nome_controller, $formulario,$rules_ativo)
                                         .'
                                       </div>
                                       <div class="modal-footer">
@@ -172,7 +173,7 @@ class EscreveView {
                                       <form action="<?php echo base_url() ?>' . $nome_controller . '/excluir" method="post" class="form-horizontal">
                                       <div class="modal-body">
                                        '.
-                                        $this->escreve_formulario_remover($nome_controller, $formulario)
+                                        $this->escreve_formulario_remover($nome_controller, $formulario,$tamanho_da_col ='col-md-4',$rules_ativo)
                                         .'
                                       </div>
                                       <div class="modal-footer">
@@ -208,7 +209,7 @@ class EscreveView {
                                       </div>
                                       <div class="modal-body">
                                                                                     '.
-                                        $this->escreve_formulario($nome_controller, $formulario)
+                                        $this->escreve_formulario($nome_controller, $formulario,$rules_ativo)
                                         .'
                                       </div>
                                       <div class="modal-footer">
@@ -273,7 +274,7 @@ class EscreveView {
      * @return type
      * Sob analise ainda
      */
-    function escreve_formulario_remover($tabela, $formulario,$tamanho_da_col ='col-md-4') {
+    function escreve_formulario_remover($tabela, $formulario,$tamanho_da_col ='col-md-4',$rules_ativo) {
 $form="";
  foreach ($formulario as $key => $f) {
  

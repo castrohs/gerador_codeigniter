@@ -122,7 +122,7 @@ foreach ($campos as $key => $campo) {
     echo $this->escreveview->escreve_btn("div_".$nome_tabela."_pagina_listar") ;
     echo "<div id='div_".$nome_tabela."_pagina_listar'>";
     
-    $echo = $this->escreveview->escreve_pagina_listar($nome_controller,$formulario,$bootstrap);
+    $echo = $this->escreveview->escreve_pagina_listar($nome_controller,$formulario,$bootstrap,$rules_ativo);
     highlight_string($echo);
     echo "</div>";
 
