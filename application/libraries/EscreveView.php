@@ -113,7 +113,7 @@ class EscreveView {
                                    ' . $item_tabela . '
                                     <td><a href="#" class="btn  btn-primary right" data-toggle="modal"
                                     data-target="#editar_<?php ' . $data_target_item_key . '?>">
-                                    ' . $this->icone_editar .'" </a></td>
+                                    ' . $this->icone_editar .' </a></td>
 
                                     <td>
                                         <a href="#" data-toggle="modal" data-target="#remover_<?php ' . $data_target_item_key . '?>" class="btn btn-danger">
@@ -124,13 +124,7 @@ class EscreveView {
                                 </tr>
 
 
-//formularios
-//#
-//#
-//#
-//editar
-//#
-//#
+
 
                                 <div class="modal fade" id="editar_<?php ' . $data_target_item_key . '?>" tabindex="-1" role="dialog" aria-labelledby="editar_<?php ' . $data_target_item_key . '?>" aria-hidden="true">
                                   <div class="modal-dialog" role="document">
@@ -155,11 +149,7 @@ class EscreveView {
                                   </div>
                                 </div>
                             
-//#
-//#
-//remover
-//#
-//#
+
 
 <div class="modal fade" id="remover_<?php ' . $data_target_item_key . '?>" tabindex="-1" role="dialog" aria-labelledby="remover_<?php ' . $data_target_item_key . '?>" aria-hidden="true">
                                   <div class="modal-dialog" role="document">
