@@ -182,7 +182,7 @@ class " . $nome_view . " extends CI_Controller {
         return $retorno;
     }
 
-    public function form_valitador_close($ativo = true) {
+    public function form_valitador_close($ativo = null) {
         $retorno = "";
         if ($ativo) {
             $retorno = "}";

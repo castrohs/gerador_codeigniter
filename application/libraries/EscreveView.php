@@ -140,7 +140,7 @@ class EscreveView {
                                       </div>
                                       <div class="modal-body">
                                         '.
-                                        $this->escreve_formulario_edit($nome_controller, $formulario,$rules_ativo)
+                                        $this->escreve_formulario_edit($nome_controller, $formulario,'col-md-4',$rules_ativo)
                                         .'
                                      
                                     </div>
