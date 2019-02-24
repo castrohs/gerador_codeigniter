@@ -5,11 +5,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class EscreveController {
 
     // menu dentro do  web_head
-//    var $cabecalho = "\$this->load->view('layout/web_head', \$data);";
+    var $cabecalho = "\$this->load->view('layout/web_head', \$data);";
     // menu fora do web_head
-    var $cabecalho="\$this->load->view('layout/web_head', \$data);
-        \$menu['menus'] = \$this->MenuModel->menus();
-        \$this->load->view('layout/menu', \$menu);";
+//    var $cabecalho="\$this->load->view('layout/web_head', \$data);
+//        \$menu['menus'] = \$this->MenuModel->menus();
+//        \$this->load->view('layout/menu', \$menu);";
 
     var $ci;
 
@@ -35,7 +35,6 @@ class " . $nome_view . " extends CI_Controller {
         
         $controller .= "\n" . $this->escreve_listar($nome_view, $nome_model);
         $controller .= "\n" . $this->escreve_cadastrar($nome_view, $nome_model, $rules, $rules_ativo); //
-        $controller .= "\n" . $this->escreve_busca_um($nome_view, $nome_model,$primary_key); //
         $controller .= "\n" . $this->escreve_atualizar($nome_view, $nome_model, $rules, $rules_ativo);
         $controller .= "\n" . $this->escreve_atualizar_view($nome_view, $nome_model, $primary_key);
         $controller .= "\n" . $this->escreve_excluir($nome_view, $nome_model, $rules, $rules_ativo); //
@@ -58,32 +57,6 @@ class " . $nome_view . " extends CI_Controller {
         \$this->load->view('" . $nome_view . "/listar', \$data);
         \$this->load->view('layout/web_footer');
     }";
-        return $retorno;
-    }
-    public function escreve_busca_um($nome_view, $nome_model,$primary_key) {
-        $pk = "";
-        $id = "";
-        foreach ($primary_key as $key) {
-            $pk .= "\n $" . $key . "= \$this->input->post('" . $key . "');\n";
-            $pk .="if(empty($".$key.")){\n";
-            $pk .= "\n $" . $key . "=null;\n }\n";
-            $id .= "\$" . $key . ",";
-        }
-        $id = rtrim($id, ',');
-
-        $retorno = "
-   public function busca_um() {
-   
-        \$this->load->model('" . $nome_model . "');"
-        .$pk . "
-        \$" . $nome_view . " = \$this-> " . $nome_model . "->" . $this->ci->lang->line('model_busca_um') . "(" . $id . ");
-        \$data['item']= \$" . $nome_view . ";" 
-        . $this->cabecalho         
-        . " \$this->load->view('" . $nome_view . "/busca_um', \$data);
-        \$this->load->view('layout/web_footer');
-    }";
-
-      
         return $retorno;
     }
 
@@ -190,9 +163,9 @@ class " . $nome_view . " extends CI_Controller {
         return $retorno;
     }
 
-    public function form_valitador($nome_view, $rules, $ativo = true) {
+    public function form_valitador($nome_view, $rules, $ativo = 0) {
         $retorno = "";
-        if ($ativo) {
+        if ($ativo==1) {
             $retorno = "\$config['error_prefix'] = '<div class=\"error_prefix\">';
             \$config['error_suffix'] = '</div>';
             \$this->load->library('form_validation',\$config);

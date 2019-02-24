@@ -1,14 +1,13 @@
-###################
-What is CodeIgniter
-###################
+Este projeto é feito em codeigniter 3.x e é um gerador de codigo base para o mesmo.
+Utilizando o sgbd como base dos dados.
+Ele gera diversos dados:
+Escreve uma controller
+escreve uma model
+gera forumalario de visualização
+gera formalario de edição
 
-CodeIgniter is an Application Development Framework - a toolkit - for people
-who build web sites using PHP. Its goal is to enable you to develop projects
-much faster than you could if you were writing code from scratch, by providing
-a rich set of libraries for commonly needed tasks, as well as a simple
-interface and logical structure to access these libraries. CodeIgniter lets
-you creatively focus on your project by minimizing the amount of code needed
-for a given task.
-*********
-*********
-Gerador de código para codeigniter
+ele cria a view e o edit para a modal dos dados basica já com alguns tipos de dados.
+
+O código também é iniciado para criar o auto_complete  para o netbeans.
+
+

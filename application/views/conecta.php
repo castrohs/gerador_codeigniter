@@ -10,7 +10,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	
 </head>
 <body>
-    <h1>Bem vindo ao gerador</h1>
+    <h1>
+    <?php 
+    
+    
+    echo $this->lang->line('vw_bem_vindo') ?>
+    </h1>
 <div id="container">
     <form class="form-horizontal" action="<?php echo base_url('Gerador/conexao')?>" method="post">
 <fieldset>
@@ -18,7 +23,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <!-- Form Name -->
 <legend>
     <center>
-        Conecte-se ao banco
+        
+        <?php echo  $this->lang->line('vw_form1_nome') ?>
     </center>
 </legend>
 
@@ -27,7 +33,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 <!-- Text input-->
 <div class="form-group">
-  <label class="col-md-4 control-label" for="hostname">Localizacao</label>  
+  <label class="col-md-4 control-label" for="hostname">
+  <?php echo  $this->lang->line('vw_form1_localizacao') ?>
+  </label>  
   <div class="col-md-4">
   <input id="hostname" name="hostname" type="text" placeholder="" class="form-control input-md" required="" value="localhost">
     
@@ -36,7 +44,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 <!-- Text input-->
 <div class="form-group">
-  <label class="col-md-4 control-label" for="administrador">Adminstrador</label>  
+  <label class="col-md-4 control-label" for="administrador">
+  <?php echo  $this->lang->line('vw_form1_administrador') ?>
+  </label>  
   <div class="col-md-4">
   <input id="administrador" name="administrador" type="text" placeholder="" class="form-control input-md" required="" value="root">
     
@@ -45,7 +55,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 <!-- Text input-->
 <div class="form-group">
-  <label class="col-md-4 control-label" for="senha">Senha</label>  
+  <label class="col-md-4 control-label" for="senha">
+  <?php echo  $this->lang->line('vw_form1_senha') ?>
+  </label>  
   <div class="col-md-4">
       <input id="senha" name="senha" type="text" placeholder="" class="form-control input-md" value="">
     
@@ -53,11 +65,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 </div>
 <!-- Text input-->
 <div class="form-group">
-  <label class="col-md-4 control-label" for="quantas_letras_remover">Letras a remover</label>  
+  <label class="col-md-4 control-label" for="quantas_letras_remover"><?php echo  $this->lang->line('vw_form1_prefixo_tabela') ?></label>  
   <div class="col-md-4">
       <input id="quantas_letras_remover" name="quantas_letras_remover" type="text"
              placeholder="" class="form-control input-md" value="3">
-        <span class="help-block">Quantidade de letras do prefixo de sua tabela</span>  
+        <span class="help-block">
+        <?php echo  $this->lang->line('vw_form1_prefixo_tabela_help') ?>
+        </span>  
     
   </div>
 </div>
@@ -66,7 +80,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <div class="form-group ">
   <label class="col-md-4 control-label" for="submit"></label>
   <div class="col-md-4">
-    <button id="submit" name="submit" class="btn btn-warning">Buscar Dados</button>
+    <button id="submit" name="submit" class="btn btn-success">
+    <?php echo  $this->lang->line('vw_form1_buscar_bases') ?>
+    </button>
   </div>
 </div>
 

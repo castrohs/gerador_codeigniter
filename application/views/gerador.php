@@ -69,7 +69,7 @@ foreach ($campos as $key => $campo) {
            $object = new stdClass();
            $object->formulario =  $this->escreveview->gen_form($campo);
            $object->formulario_edit =$this->escreveview-> gen_form_edit($campo);
-           $object->formulario_remover =$this->escreveview-> gen_form_remover($campo,$primary_key);
+           
            $object->campo = $campo;
            
         array_push($formulario,  $object);
@@ -106,29 +106,23 @@ foreach ($campos as $key => $campo) {
     
     highlight_string($echo);
     echo "</div>";
-    echo "<h3>Novo Item</h3>";   
-    echo $this->escreveview->escreve_btn("div_".$nome_tabela."_add") ;
-    echo "<div id='div_".$nome_tabela."_add'>";
-    $echo = $this->escreveview->escreve_formulario($nome_controller,$formulario) ;
-    highlight_string($echo);
-    echo "</div>";
-    echo "<h3>Edição de Item</h3>";   
-    echo $this->escreveview->escreve_btn("div_".$nome_tabela."_edit") ;
-    echo "<div id='div_".$nome_tabela."_edit'>";
-    $echo = $this->escreveview->escreve_formulario_edit($nome_controller,$formulario) ;
-    highlight_string($echo);
-    echo "</div>";
-    echo "<h3>Remover de Item</h3>";   
-    echo $this->escreveview->escreve_btn("div_".$nome_tabela."_remove") ;
-    echo "<div id='div_".$nome_tabela."_remove'>";
-    $echo = $this->escreveview->escreve_formulario_remover($nome_controller,$formulario) ;
-    highlight_string($echo);
+//    echo "<h3>Novo Item</h3>";   
+//    echo $this->escreveview->escreve_btn("div_".$nome_tabela."_add") ;
+//    echo "<div id='div_".$nome_tabela."_add'>";
+//    $echo = $this->escreveview->escreve_formulario($nome_controller,$formulario) ;
+//    highlight_string($echo);
+//    echo "</div>";
+//    echo "<h3>Edição de Item</h3>";   
+//    echo $this->escreveview->escreve_btn("div_".$nome_tabela."_edit") ;
+//    echo "<div id='div_".$nome_tabela."_edit'>";
+//    $echo = $this->escreveview->escreve_formulario_edit($nome_controller,$formulario) ;
+//    highlight_string($echo);
     echo "</div>";
     echo "<h3>Pagina listar</h3>";   
     echo $this->escreveview->escreve_btn("div_".$nome_tabela."_pagina_listar") ;
     echo "<div id='div_".$nome_tabela."_pagina_listar'>";
     
-    $echo = $this->escreveview->escreve_pagina_listar($nome_controller,$formulario,$bootstrap) ;
+    $echo = $this->escreveview->escreve_pagina_listar($nome_controller,$formulario,$bootstrap,$rules_ativo);
     highlight_string($echo);
     echo "</div>";
 
