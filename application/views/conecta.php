@@ -59,7 +59,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   <?php echo  $this->lang->line('vw_form1_senha') ?>
   </label>  
   <div class="col-md-4">
-      <input id="senha" name="senha" type="text" placeholder="" class="form-control input-md" value="">
+      <input id="senha" name="senha" type="password" placeholder="" class="form-control input-md" value="">
     
   </div>
 </div>

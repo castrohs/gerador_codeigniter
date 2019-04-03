@@ -54,7 +54,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <div class="col-md-4">
                             <select id="rules_ativo" name="rules_ativo" class="form-control">
                                 <option value="1">SIM</option>
-                                <option value="2" selected="">NÃO</option>
+                                <option value="0" selected="">NÃO</option>
                             </select>
                         </div>
                     </div>

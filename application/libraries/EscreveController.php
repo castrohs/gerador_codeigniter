@@ -13,7 +13,7 @@ class EscreveController {
 
     var $ci;
 
-    function escreve_controller($nome_view, $nome_model, $primary_key,$rules_ativo = 1) {
+    function escreve_controller($nome_view, $nome_model, $primary_key,$rules_ativo =null) {
         $this->ci = &get_instance();
 
         $rules = "";
