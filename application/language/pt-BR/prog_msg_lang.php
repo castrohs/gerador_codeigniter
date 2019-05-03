@@ -14,4 +14,5 @@ $lang['vw_form1_prefixo_tabela']="Letras a remover";
 $lang['vw_form1_prefixo_tabela_help']="Quantidade de letras do prefixo de sua tabela";
 $lang['vw_form1_buscar_bases']="Buscar banco de dados";
 $lang['vw_listar_remover']="remover";
+$lang['view_cadastrar']="insert";
 //$lang['controller_listar']="listar";

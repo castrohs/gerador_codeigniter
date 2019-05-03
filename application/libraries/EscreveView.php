@@ -15,33 +15,35 @@ class EscreveView {
 
         foreach ($formulario as $key => $f) {
             if ($rules_ativo==1) {
-                $rules = "<?php echo form_error('" . $f->campo->Field . "'); ?>";
+                $rules = "<?php echo form_error('" . $f->campo->Field . "'); ?>\n";
             }
-            $form .= $rules . "<div class='form-group'>
+            $form .= $rules . "<div class='form-group'>\n
   <label class='col-md-4  control-label' for='" . $f->campo->Field . "'>" . $f->campo->Field . "</label>"  
-  ."<div class='col-md-4'>
+  ."<div class='col-md-4'>\n
   ". $f->formulario 
-  . "</div>"
-. "</div>";
+  . "</div>\n"
+. "</div>\n";
         }
 
         $result = ""
-                . "<form action='<?php echo base_url('" . $tabela . "/".$this->ci->lang->line('view_cadastrar')."') ?>' method='post' name='adicionar' id='adicionar' class='form-horizontal'>"
-                . "<legend>" . $tabela . "</legend>
-" . $form . "<div class='form-group'> \n"
-                . "<label class='col-md-4 control-label' for='submit'></label> \n"
+                . "<form action='<?php echo base_url('" . $tabela . "/".$this->ci->lang->line('view_cadastrar')."') ?>' method='post' name='adicionar' id='adicionar' class='form-horizontal'>\n"
+                
+    ."<fieldset>\n"
+                . $form 
+                . "<div class='form-group'>"
+                . "<label class='col-md-4 control-label' for='submit'></label> "
 //                . "<div class='col-md-4'> \n"
 //                . " <button id='submit' name='submit' class='btn btn-success'>Enviar</button>\n"
 //                . "  </div>\n"
 //                . "</div>\n"
-                . "</fieldset>\n"
-                 . ' </div>
+                . "</fieldset>"
+                 . ' 
                                       <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                        <button type="submit" class="btn btn-primary">Editar</button>
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                                        <button type="submit" class="btn btn-primary">Inserir</button>
                                         
                                       </div>'
-                . "</form>\n"
+                . "</form>"
                 . "";
 
         return ($result);
@@ -129,7 +131,27 @@ class EscreveView {
 
 
 
-                                <div class="modal fade" id="editar_<?php ' . $data_target_item_key . '?>" tabindex="-1" role="dialog" aria-labelledby="editar_<?php ' . $data_target_item_key . '?>" aria-hidden="true">
+                                
+
+                                <?php
+                            }
+                            ?>
+
+                            <?php
+                        } else {
+                            echo "nada a ser exibido!";
+                        }
+                        ?>
+
+                    </tbody>
+                </table>
+         <?php       
+ if (isset($busca_todas)) {
+
+                            foreach ($busca_todas as $key => $item) {
+                              //  var_dump($item);
+                              ?>
+<div class="modal fade" id="editar_<?php ' . $data_target_item_key . '?>" tabindex="-1" role="dialog" aria-labelledby="editar_<?php ' . $data_target_item_key . '?>" aria-hidden="true">
                                   <div class="modal-dialog" role="document">
                                     <div class="modal-content">
                                       <div class="modal-header">
@@ -138,13 +160,14 @@ class EscreveView {
                                           <span aria-hidden="true">&times;</span>
                                         </button>
                                       </div>
-                                      <div class="modal-body">
+                                      
                                         '.
                                         $this->escreve_formulario_edit($nome_controller, $formulario,'col-md-4',$rules_ativo)
                                         .'
                                      
-                                    </div>
+                                   
                                   </div>
+                                </div>
                                 </div>
                             
 
@@ -172,19 +195,10 @@ class EscreveView {
                                     </div>
                                   </div>
                                 </div>
-
-                                <?php
-                            }
-                            ?>
-
-                            <?php
-                        } else {
-                            echo "nada a ser exibido!";
-                        }
-                        ?>
-
-                    </tbody>
-                </table>
+<?php
+}
+}
+?>
                 
 <div class="modal fade" id="adicionar" tabindex="-1" role="dialog" aria-labelledby="adicionar" aria-hidden="true">
                                   <div class="modal-dialog" role="document">
@@ -232,11 +246,12 @@ class EscreveView {
                     . "<div class='" . $tamanho_da_col . "'>"
                     . $f->formulario_edit
                     . "</div>"
-                    . "</div> \n";
+                    . "</div> ";
         }
 
         $result = ""
-                . "<form action='<?php echo base_url('" . $tabela . "/atualizar') ?>' method='post' name='editar' id='editar' class='form-horizontal' \n"
+                . "<form action='<?php echo base_url('" . $tabela . "/atualizar') ?>' method='post' name='editar' id='editar' class='form-horizontal' >"
+                . "<div class=\"modal-body\">"
                 . "<fieldset>"
                 
                 . $form
@@ -244,15 +259,16 @@ class EscreveView {
 //                . "<label class='col-md-4 control-label' for='submit'></label>"
 //                . "    <button id='submit' name='submit' class='btn btn-success '>Enviar</button> \n"
 //                . "</div> \n"
-                . "</fieldset> \n"
-                . ' </div>
+                . "</fieldset> "
+                . " </div>"
+                . ' 
                                       <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
                                         <button type="submit" class="btn btn-primary">Editar</button>
                                         
                                       </div>'
-                . ""
-                . "</form> \n"
+                
+                . "</form> "
                 . "";
         
         
