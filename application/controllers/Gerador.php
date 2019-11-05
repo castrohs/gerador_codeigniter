@@ -19,39 +19,47 @@ class Gerador extends CI_Controller {
      * map to /index.php/welcome/<method_name>
      * @see https://codeigniter.com/user_guide/general/urls.html
      */
-    
-
     public function index() {
         $this->conecta();
     }
 
     var $banco_ativo = 'information_schema';
-    var $arr = ['hostname','administrador','senha','quantas_letras_remover'];
-    var $conexao = ['hostname','administrador','senha'];
+    var $arr = ['hostname', 'administrador', 'senha', 'quantas_letras_remover'];
+    var $conexao = ['hostname', 'administrador', 'senha'];
 
     public function gera() {
-        
+
         $get = $this->input->post();
+        if(!empty( $get['novo_banco'])){
         $this->novo_banco = $get['novo_banco'];
-        
-             $this->DBA->hostname =  $this->session->hostname;
-             $this->DBA->administrador =  $this->session->administrador;
-             $this->DBA->senha =  $this->session->senha;
-             
-        
-             $data['onde_salvar']=$get['onde_salvar'];
-        
+
+        $this->DBA->hostname = $this->session->hostname;
+        $this->DBA->administrador = $this->session->administrador;
+        $this->DBA->senha = $this->session->senha;
+
+
+        $data['onde_salvar'] = $get['onde_salvar'];
+
 
         $this->DBA->db1 = $this->DBA->conecta($get['novo_banco']);
-        $data['bootstrap']=$get['bootstrap'];
-        $data['rules_ativo']=$get['rules_ativo'];
+        $data['bootstrap'] = $get['bootstrap'];
+        $data['rules_ativo'] = $get['rules_ativo'];
         $data['tabelas'] = $this->DBA->busca_lista_de_tabelas($this->DBA->db1);
-        
+
         $data['tables_in'] = 'Tables_in_' . $this->novo_banco;
         $data['quantas_letras_remover'] = $this->session->quantas_letras_remover;
-
+        if ($get['bootstrap'] == 3) {
+            $escreveview = $this->escreveview_b3;
+        } else {
+            $escreveview = $this->escreveview_b4;
+        }
+        $data['view_escreve'] = $escreveview;
         $this->load->view('layout/web_head');
-        $this->load->view('gerador', $data);;
+
+        $this->load->view('gerador', $data);
+        }else{
+            redirect(base_url());
+        }
     }
 
     public function conecta() {
@@ -63,20 +71,19 @@ class Gerador extends CI_Controller {
     public function conexao() {
         $data['pasta_do_sistema'] = "//var/www/html/arquivo";
         $get = $this->input->post();
-        
-        
-        foreach ($this->arr  as $value ) {
+
+
+        foreach ($this->arr as $value) {
 //            echo $value . " ".$get[$value]."<br>";
-             $this->DBA->$value = $get[$value];
-            
-             
-             $this->session->set_userdata($value, $get[$value]);
-             
+            $this->DBA->$value = $get[$value];
+
+
+            $this->session->set_userdata($value, $get[$value]);
         }
-        
-        $data['get']=$get;
+
+        $data['get'] = $get;
         $this->DBA->db1 = $this->DBA->conecta('information_schema');
-       
+
         $data['bancos'] = $this->DBA->busca_lista_de_banco_de_dados($this->DBA->db1);
         $this->load->view('layout/web_head');
         $this->load->view('escolha_dba', $data);

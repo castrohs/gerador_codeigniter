@@ -2,12 +2,12 @@
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class EscreveView {
+class EscreveView_b4 {
     var $icone_editar ;
     var $icone_remover ;
     var $icone_adicionar ;
     var $ci;
-
+    
     function escreve_formulario($tabela = null, $formulario, $rules_ativo = null) {
         $this->ci = &get_instance();
         $form = '';
@@ -17,9 +17,9 @@ class EscreveView {
             if ($rules_ativo==1) {
                 $rules = "<?php echo form_error('" . $f->campo->Field . "'); ?>\n";
             }
-            $form .= $rules . "<div class='form-group'>\n
+            $form .= $rules . "<div class='form-group row '>\n
   <label class='col-md-4  control-label' for='" . $f->campo->Field . "'>" . $f->campo->Field . "</label>"  
-  ."<div class='col-md-4'>\n
+  ."<div class='col-md-8'>\n
   ". $f->formulario 
   . "</div>\n"
 . "</div>\n";
@@ -30,12 +30,12 @@ class EscreveView {
                 
     ."<fieldset>\n"
                 . $form 
-                . "<div class='form-group'>"
+                . "<div class='form-group row'>"
                 . "<label class='col-md-4 control-label' for='submit'></label> "
-//                . "<div class='col-md-4'> \n"
+//                . "<div class='col-md-8'> \n"
 //                . " <button id='submit' name='submit' class='btn btn-success'>Enviar</button>\n"
 //                . "  </div>\n"
-//                . "</div>\n"
+                . "</div>\n"
                 . "</fieldset>"
                  . ' 
                                       <div class="modal-footer">
@@ -49,8 +49,8 @@ class EscreveView {
         return ($result);
     }
 
-    function escreve_pagina_listar($nome_controller = null, $formulario,$bootstrap=3,$rules_ativo=null) {
-        $this->icones_bootstrap($bootstrap);
+    function escreve_pagina_listar($nome_controller = null, $formulario,$bootstrap=null,$rules_ativo=null) {
+        $this->icones_bootstrap();
         $cabecalho_tabela = '';
         $item_tabela = '';
         $item_key = '';
@@ -88,14 +88,14 @@ class EscreveView {
 
     <div class="col-md-12 col-xs-12 col-lg-12">
 
-        <div class="panel panel-info">
+        <div class="">
 
-            <div class="panel-heading">Lista de  ' . $nome_controller . '</div>
-            <div class="panel-body">
+            <div class="card-header">Lista de  ' . $nome_controller . '</div>
+            <div class="cad-body">
 
 
 
-                <table class="table table-responsive table-hover">
+                <table class="table  table-hover">
                     <thead>
                         <tr>
 
@@ -152,7 +152,7 @@ class EscreveView {
                               //  var_dump($item);
                               ?>
 <div class="modal fade" id="editar_<?php ' . $data_target_item_key . '?>" tabindex="-1" role="dialog" aria-labelledby="editar_<?php ' . $data_target_item_key . '?>" aria-hidden="true">
-                                  <div class="modal-dialog" role="document">
+                                  <div class="modal-dialog modal-lg" role="document">
                                     <div class="modal-content">
                                       <div class="modal-header">
                                         <h5 class="modal-title" id="exampleModalLabel">Edição : '.$nome_controller.'</h5>
@@ -173,7 +173,7 @@ class EscreveView {
 
 
 <div class="modal fade" id="remover_<?php ' . $data_target_item_key . '?>" tabindex="-1" role="dialog" aria-labelledby="remover_<?php ' . $data_target_item_key . '?>" aria-hidden="true">
-                                  <div class="modal-dialog" role="document">
+                                  <div class="modal-dialog modal-lg" role="document">
                                     <div class="modal-content">
                                       <div class="modal-header">
                                         <h5 class="modal-title" id="exampleModalLabel">Remoção: ' . $nome_controller . '</h5>
@@ -201,7 +201,7 @@ class EscreveView {
 ?>
                 
 <div class="modal fade" id="adicionar" tabindex="-1" role="dialog" aria-labelledby="adicionar" aria-hidden="true">
-                                  <div class="modal-dialog" role="document">
+                                  <div class="modal-dialog modal-lg" role="document">
                                     <div class="modal-content">
                                       <div class="modal-header">
                                         <h5 class="modal-title" id="exampleModalLabel">Adicionar novo Item</h5>
@@ -240,7 +240,7 @@ class EscreveView {
             if ($rules_ativo) {
                 $rules = "<?php echo form_error('" . $f->campo->Field . "'); ?>";
             }
-          $form.=  "<div class='form-group'>"
+          $form.=  "<div class='form-group row'>"
                     . "<label class='" . $tamanho_da_col . " control-label"
                     . "' for='" . $f->campo->Field . "'>" . $f->campo->Field . "</label>"
                     . "<div class='" . $tamanho_da_col . "'>"
@@ -255,7 +255,7 @@ class EscreveView {
                 . "<fieldset>"
                 
                 . $form
-//                . "\n <div class='form-group'> \n"
+//                . "\n <div class='form-group row'> \n"
 //                . "<label class='col-md-4 control-label' for='submit'></label>"
 //                . "    <button id='submit' name='submit' class='btn btn-success '>Enviar</button> \n"
 //                . "</div> \n"
@@ -303,7 +303,7 @@ $form="";
                 
                 . "<fieldset>"
                 
-                . "<div class='form-group'>"
+                . "<div class='form-group row'>"
                 . $form
                 . "\n <label class='col-md-4 control-label' for='submit'></label>"
                 
@@ -384,21 +384,12 @@ $form="";
         return $controller;
     }
 
-    public function icones_bootstrap($bootstrap) {
+    public function icones_bootstrap() {
 
-        if ($bootstrap == 3) {
-            $this->icone_editar = '<span class="glyphicon glyphicon-pencil"></span>';
-            $this->icone_remover = '<span class="glyphicon glyphicon-remove"></span>';
-            $this->icone_adicionar = '<span class="glyphicon glyphicon-plus"></span>';
-        } else {
-            /**
-             *
-             * bootstrap4
-             */
             $this->icone_editar = '<i class="fas fa-edit"></i>';
             $this->icone_remover = '<i class="fas fa-trash"></i>';
             $this->icone_adicionar = '<i class="fas fa-plus"></i>';
-        }
+        
     }
     
     function gen_form_remover($campo) {
@@ -417,7 +408,7 @@ $form="";
         if($campo->Key =="PRI"){
       
         
-        $text = "<div class='form-group' hidden>";
+        $text = "<div class='form-group row' hidden>";
        
             $text .= " <input type='text' id = '" . $campo->Field . "' name = '" . $campo->Field . "'"
                     
@@ -425,7 +416,7 @@ $form="";
                     ."</div>";
             
         }else{
-            $text = "<div class='form-group' >";
+            $text = "<div class='form-group row' >";
            $text .="<span>" . $campo->Field . " <?php echo \$item->" . $campo->Field . "?></span>"
                    ."</div>";
         } 

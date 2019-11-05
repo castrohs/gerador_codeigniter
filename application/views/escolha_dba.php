@@ -59,6 +59,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         </div>
                     </div>
                     <div class="form-group">
+                        <label class="col-md-4 control-label" for="ci_version">CI Versão</label>
+                        <div class="col-md-4">
+                            <select id="rules_ativo" name="ci_version" class="form-control">
+                                <option value="3">3</option>
+                                <option value="4" selected="">4</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
                         <label class="col-md-4 control-label" for="one_salvar">Caminho para a linha de backup</label>
                         <div class="col-md-4">
                             <input name="onde_salvar" value="" class="form-control" placeholder="/xx/yy/table.bkp">

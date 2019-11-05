@@ -15,8 +15,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <a href="<?php echo base_url()?>">Voltar</a><br>
 Não vou inventar a roda então para formatar o texto <a href="https://www.freeformatter.com/html-formatter.html">Free Formatter</a>
 <?php 
-   
+
 $auto_complete="";
+$auto_load="";
 echo "<a name='Voltar'></a> ";
 foreach ($tabelas as $key => $tabela) {
     $nome_tabela_sem_prefixo = strtolower(substr($tabela->$tables_in,$quantas_letras_remover));
@@ -48,6 +49,7 @@ $primary_key=array();
 $formulario=array();   
 $variaveis="";
 $variaveis_array="";
+
 foreach ($campos as $key => $campo) {
     
 
@@ -66,8 +68,8 @@ foreach ($campos as $key => $campo) {
             $variaveis_array = $variaveis_array . ",";
         } 
            $object = new stdClass();
-           $object->formulario =  $this->escreveview->gen_form($campo);
-           $object->formulario_edit =$this->escreveview-> gen_form_edit($campo);
+           $object->formulario =  $view_escreve->gen_form($campo);
+           $object->formulario_edit =$view_escreve-> gen_form_edit($campo);
            
            $object->campo = $campo;
            
@@ -82,7 +84,7 @@ foreach ($campos as $key => $campo) {
     $nome_tabela = strtolower(($tabela->$tables_in));
     $nome_controller = ucwords($nome_tabela_sem_prefixo);
     $nome_model = ucwords($nome_tabela_sem_prefixo).$prefixoModel;
-    
+    $auto_load = $auto_load."'".$nome_model."',\n";
     
     $auto_complete=$auto_complete. " ".$this->escreveautocomplete->pre_add_escreve_auto_complete($nome_model);
     
@@ -92,43 +94,34 @@ foreach ($campos as $key => $campo) {
     echo "<div id=div_".$nome_tabela.">";
     echo "<h3>controller: ".$nome_controller."</h3>";
     
-    echo $this->escreveview->escreve_btn("div_".$nome_controller."_vw") ;
+    echo $view_escreve->escreve_btn("div_".$nome_controller."_vw") ;
     echo "<div id='div_".$nome_controller."_vw'>";
      $echo = $this->escrevecontroller->escreve_controller($nome_view,$nome_model,$primary_key,$rules_ativo)  ;
      highlight_string($echo);
     echo "</div>";
     
     echo "<h3>model: ".$nome_model."</h3>";   
-    echo $this->escreveview->escreve_btn("div_".$nome_model."_model") ;
+    echo $view_escreve->escreve_btn("div_".$nome_model."_model") ;
     echo "<div id='div_".$nome_model."_model'>";
     $echo = $this->escrevemodel->escreve_model($nome_model,$nome_tabela,$variaveis,$variaveis_array,$primary_key) ;
     
     highlight_string($echo);
     echo "</div>";
-//    echo "<h3>Novo Item</h3>";   
-//    echo $this->escreveview->escreve_btn("div_".$nome_tabela."_add") ;
-//    echo "<div id='div_".$nome_tabela."_add'>";
-//    $echo = $this->escreveview->escreve_formulario($nome_controller,$formulario) ;
-//    highlight_string($echo);
-//    echo "</div>";
-//    echo "<h3>Edição de Item</h3>";   
-//    echo $this->escreveview->escreve_btn("div_".$nome_tabela."_edit") ;
-//    echo "<div id='div_".$nome_tabela."_edit'>";
-//    $echo = $this->escreveview->escreve_formulario_edit($nome_controller,$formulario) ;
-//    highlight_string($echo);
+
     echo "</div>";
     echo "<h3>Pagina listar</h3>";   
-    echo $this->escreveview->escreve_btn("div_".$nome_tabela."_pagina_listar") ;
+    echo $view_escreve->escreve_btn("div_".$nome_tabela."_pagina_listar") ;
     echo "<div id='div_".$nome_tabela."_pagina_listar'>";
     
-    $echo = $this->escreveview->escreve_pagina_listar($nome_controller,$formulario,$bootstrap,$rules_ativo);
+    $echo = $view_escreve->escreve_pagina_listar($nome_controller,$formulario,$bootstrap,$rules_ativo,$bootstrap);
     highlight_string($echo);
-    echo "</div>";
+//    echo "</div>";
 
     echo "</div>";
     }
+    
     }   
-   
+    echo "</div>";
         
     ?>
 <div style="border-top-color: black ; border-width: 1px;">
@@ -137,7 +130,7 @@ foreach ($campos as $key => $campo) {
     echo "<a name='AutoComplete'></a> ";
     echo "<br> ";
     
-    echo $this->escreveview->escreve_btn("div_auto_complete") ;
+    echo $view_escreve->escreve_btn("div_auto_complete") ;
     
     
   echo "<div id='div_auto_complete'>";
@@ -154,13 +147,28 @@ echo "</div>";
     echo "<a name='backup_data_base'></a> ";
     echo "<br> ";
     
-    echo $this->escreveview->escreve_btn("backup_data_base") ;
+    echo $view_escreve->escreve_btn("backup_data_base") ;
     
     
   echo "<div id='backup_data_base'>";
   
   
     highlight_string($this->escrevemysqlbackup->gera($onde_salvar,$tabelas));
+echo "</div>";
+
+    ?>
+
+</div>
+<div style="border-top-color: black ; border-width: 1px;">
+        <h3>Auto Load codeigniter</h3><?php
+    echo "<a href='#Voltar'>Voltar</a> ";
+    echo "<a name='auto_load'></a> ";
+    
+    echo "<br> ";
+   echo $view_escreve->escreve_btn("auto_load") ;
+     echo "<div id='auto_load'>";
+
+    highlight_string($auto_load);
 echo "</div>";
 
     ?>

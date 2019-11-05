@@ -139,20 +139,20 @@ class  " . $nome_model . " extends CI_Model {
 
     public function escreve_busca_um($nome_tabela, $query_where_busca_um, $query_where_input, $join, $query_where_busca_um_quantidade) {
 
-        $sizeof = "";
-        if ($query_where_busca_um_quantidade == 1) {
-            $sizeof = " if(sizeof(\$result) > 0){
-          return \$result[0];
+            $sizeof = " if(!empty(\$result)){
+       
+           if(is_array(\$result)){
+           
+              return \$result;
+           
+           }else{
+               return \$result[0];
+           }
+          
         }else{
             return null;
         }";
-        } else {
-            $sizeof = " if(sizeof(\$result) > 0){
-          return \$result;
-        }else{
-            return null;
-        }";
-        }
+        
         $retorno = "function " . $this->ci->lang->line('model_busca_um') . "(" . $query_where_busca_um . ") {
         \n\$this->db->reset_query();\n       
          " . $query_where_input . "
@@ -180,8 +180,16 @@ class  " . $nome_model . " extends CI_Model {
         \$query = \$this->db->get('" . $nome_tabela . "');
        \$result= \$query->result();
        
-        if(sizeof(\$result) > 0){
-          return \$result;
+         if(!empty(\$result)){
+       
+           if(is_array(\$result)){
+           
+              return \$result;
+           
+           }else{
+               return \$result[0];
+           }
+          
         }else{
             return null;
         }
